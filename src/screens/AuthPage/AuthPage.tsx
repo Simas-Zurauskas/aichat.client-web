@@ -36,7 +36,7 @@ const AuthPage = () => {
   const router = useRouter();
 
   const handleSignIn = () => {
-    window.open(generateGoogleOAuthUrl());
+    window.location.href = generateGoogleOAuthUrl();
   };
 
   useEffect(() => {
@@ -62,12 +62,16 @@ const AuthPage = () => {
       <div className="waves">
         <Waves />
       </div>
-      <a href={generateGoogleOAuthUrl()}>
-        <Button variant="outlined" onClick={() => {}}>
-          <GoogleIcon fontSize="small" sx={{ mr: 1 }} />
-          Continue with Google++
-        </Button>
+
+      {/* <Button variant="outlined" onClick={handleSignIn}>
+        <GoogleIcon fontSize="small" sx={{ mr: 1 }} />
+        Continue with Google++
+      </Button> */}
+
+      <a href={generateGoogleOAuthUrl()} target="_blank" rel="noopener noreferrer">
+        Open in your default browser
       </a>
+
       <div className="waves wawes--top">
         <Waves />
       </div>
