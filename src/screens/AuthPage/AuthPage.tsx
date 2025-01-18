@@ -62,12 +62,12 @@ const AuthPage = () => {
       <div className="waves">
         <Waves />
       </div>
-      {/* <a href={}> */}
-      <Button variant="outlined" onClick={handleSignIn}>
-        <GoogleIcon fontSize="small" sx={{ mr: 1 }} />
-        Continue with Google
-      </Button>
-      {/* </a> */}
+      <a href={generateGoogleOAuthUrl()} target="_blank">
+        <Button variant="outlined" onClick={() => {}}>
+          <GoogleIcon fontSize="small" sx={{ mr: 1 }} />
+          Continue with Google+
+        </Button>
+      </a>
       <div className="waves wawes--top">
         <Waves />
       </div>
