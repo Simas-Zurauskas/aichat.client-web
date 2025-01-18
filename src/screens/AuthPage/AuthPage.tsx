@@ -1,7 +1,7 @@
 'use client';
 import styled from '@emotion/styled';
 import { Waves } from './comps';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import { generateGoogleOAuthUrl, removeToken, setToken } from '@/api/utils';
 import { useEffect } from 'react';
@@ -73,7 +73,13 @@ const AuthPage = () => {
         <Waves />
       </div>
       {isInAppBrowser() ? (
-        <h4>Not suported</h4>
+        <>
+          <Typography variant="h4">Unsupported Browser</Typography>
+          <Typography>
+            It looks like you're using an in-app browser, which doesn’t support Google login. Please open this page in
+            Safari or Chrome to continue.
+          </Typography>
+        </>
       ) : (
         <Button variant="outlined" onClick={handleSignIn}>
           <GoogleIcon fontSize="small" sx={{ mr: 1 }} />
