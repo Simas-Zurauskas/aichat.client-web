@@ -17,6 +17,13 @@ const Main = styled.main`
   justify-content: center;
   flex-direction: column;
 
+  .unsupported {
+    padding: 0 20px;
+    * {
+      text-align: center;
+    }
+  }
+
   .waves {
     position: absolute;
     width: 100%;
@@ -73,13 +80,13 @@ const AuthPage = () => {
         <Waves />
       </div>
       {isInAppBrowser() ? (
-        <>
-          <Typography variant="h4">Unsupported Browser</Typography>
-          <Typography>
+        <div className="unsupported">
+          <Typography variant="h5">Unsupported Browser</Typography>
+          <Typography variant="body2">
             It looks like you're using an in-app browser, which doesn’t support Google login. Please open this page in
             Safari or Chrome to continue.
           </Typography>
-        </>
+        </div>
       ) : (
         <Button variant="outlined" onClick={handleSignIn}>
           <GoogleIcon fontSize="small" sx={{ mr: 1 }} />
