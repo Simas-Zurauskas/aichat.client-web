@@ -79,8 +79,7 @@ const AuthPage = () => {
       <div className="waves">
         <Waves />
       </div>
-      {/* {isInAppBrowser() ? ( */}
-      {false ? (
+      {isInAppBrowser() ? (
         <div className="unsupported">
           <Typography variant="h5">Unsupported Browser</Typography>
           <Typography variant="body2">
