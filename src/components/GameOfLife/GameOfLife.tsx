@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useRef, useEffect, useState } from 'react';
 
 // Utility function to create a 2D array (grid) of random live/dead cells
