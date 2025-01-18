@@ -62,7 +62,7 @@ const AuthPage = () => {
       <div className="waves">
         <Waves />
       </div>
-      <a href={generateGoogleOAuthUrl()} target="_blank">
+      <a href={generateGoogleOAuthUrl()} target="_blank" rel="noopener noreferrer">
         <Button variant="outlined" onClick={() => {}}>
           <GoogleIcon fontSize="small" sx={{ mr: 1 }} />
           Continue with Google+
