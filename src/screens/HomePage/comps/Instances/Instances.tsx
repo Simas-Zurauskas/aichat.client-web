@@ -30,11 +30,13 @@ export const Instances: React.FC<InstancesProps> = () => {
         queryClient.invalidateQueries({
           queryKey: [QKey.instances],
         });
+      }, 1000);
+      return () => {
         queryClient.invalidateQueries({
           queryKey: [QKey.user],
         });
-      }, 1000);
-      return () => clearInterval(interval);
+        clearInterval(interval);
+      };
     }
   }, [data]);
 

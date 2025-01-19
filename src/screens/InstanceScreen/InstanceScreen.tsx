@@ -95,12 +95,13 @@ const InstanceScreen = () => {
         queryClient.invalidateQueries({
           queryKey: [QKey.instance, id],
         });
+      }, 1000);
+      return () => {
+        clearInterval(interval);
         queryClient.invalidateQueries({
           queryKey: [QKey.user],
         });
-        console.log('YAYAY');
-      }, 1000);
-      return () => clearInterval(interval);
+      };
     }
   }, [data, id, isProcessing]);
 
