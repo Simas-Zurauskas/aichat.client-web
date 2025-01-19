@@ -27,6 +27,7 @@ const Wrap = styled(PageContainer)`
   flex-direction: column;
   max-width: 800px;
   flex: 1;
+  max-height: 100vh;
   .head {
     /* border: 1px solid white; */
     display: flex;
@@ -205,7 +206,7 @@ const InstanceScreen = () => {
         )}
       </Wrap>
 
-      <Toolbar />
+      {data && <Toolbar data={data} />}
     </Main>
   );
 };

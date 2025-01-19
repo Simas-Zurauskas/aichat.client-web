@@ -1,6 +1,6 @@
 import { AxiosProgressEvent } from 'axios';
 import { client } from '../../client';
-import { ApiResponse, Instance, Message } from '../../types';
+import { ApiResponse, Instance, LLM, Message } from '../../types';
 export * from './file';
 export * from './chat';
 
@@ -77,6 +77,17 @@ export const getChat: GetChat = (uxId) => {
   return client({
     url: `/instances/${uxId}/chat`,
     method: 'GET',
+  }).then((res) => res.data.data);
+};
+// ----------------------------------------------------------------------------------------
+
+type SetLLM = (params: { instanceUxId: string; llm: LLM }) => Promise<ApiResponse<Message[]>>;
+
+export const setLLM: SetLLM = ({ instanceUxId, ...data }) => {
+  return client({
+    url: `/instances/${instanceUxId}/llm`,
+    method: 'PUT',
+    data,
   }).then((res) => res.data.data);
 };
 // ----------------------------------------------------------------------------------------
