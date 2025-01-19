@@ -106,7 +106,7 @@ const InstanceScreen = () => {
   }, [data, id, isProcessing]);
 
   const validFiles = newFiles.filter((f) => !data?.files.map((el) => el.originalName).includes(f.name));
-  const tooLargeError = isTenMB(validFiles.reduce((acc, el) => acc + el.size, 0)) ? '' : 'Total size exceeds 10MB';
+  const tooLargeError = isTenMB(validFiles.reduce((acc, el) => acc + el.size, 0)) ? '' : 'Total size exceeds 20MB';
 
   return (
     <Main>
