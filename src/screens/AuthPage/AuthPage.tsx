@@ -9,6 +9,7 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import useActionsAuth from '@/state/actionHooks/useActionsAuth';
 import { authorise } from '@/api/routes/auth';
 import { toast } from 'react-toastify';
+import Visuals from '@/components/Visuals';
 
 const Main = styled.main`
   min-height: 100vh;
@@ -76,6 +77,7 @@ const AuthPage = () => {
 
   return (
     <Main>
+      {/* <Visuals /> */}
       <div className="waves">
         <Waves />
       </div>
