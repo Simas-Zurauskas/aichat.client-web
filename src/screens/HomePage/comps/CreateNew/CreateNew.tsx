@@ -1,9 +1,10 @@
 import { createInstance } from '@/api/routes/instances';
+import { LLM } from '@/api/types';
 import { Button, FileInput, Input } from '@/components/form';
 import { isTenMB } from '@/lib/misc';
 import { QKey } from '@/types';
 import styled from '@emotion/styled';
-import { Box } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { FileWithPath } from 'react-dropzone';
@@ -20,6 +21,7 @@ export const CreateNew: React.FC<CreateNewProps> = ({ onCreate }) => {
   const [context, setContext] = useState('');
   const [userSettings, setUserSettings] = useState('');
   const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [model, setModel] = useState(LLM.GPT4O);
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
@@ -89,6 +91,14 @@ export const CreateNew: React.FC<CreateNewProps> = ({ onCreate }) => {
           sx={{ width: 320 }}
         />
         <Box mb={2} />
+        <FormControl sx={{ width: 320 }}>
+          <InputLabel size="small">LLM</InputLabel>
+          <Select value={model} label="LLM" onChange={(e) => setModel(e.target.value as LLM)} size="small">
+            <MenuItem value={LLM.GPT4O}>{LLM.GPT4O}</MenuItem>
+            <MenuItem value={LLM.GEMINI15PRO}>{LLM.GEMINI15PRO}</MenuItem>
+          </Select>
+        </FormControl>
+        <Box mb={2} />
         <FileInput files={files} setFiles={setFiles} tooLargeError={tooLargeError} />
 
         <Box mb={2} />
@@ -96,7 +106,7 @@ export const CreateNew: React.FC<CreateNewProps> = ({ onCreate }) => {
           variant="contained"
           color="primary"
           disabled={!name || !files.length || isPending || !!tooLargeError}
-          onClick={() => mutate({ files, name, context, userSettings })}
+          onClick={() => mutate({ files, name, context, userSettings, llm: model })}
           // size="small"
         >
           UPLOAD

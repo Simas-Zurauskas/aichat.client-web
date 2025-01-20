@@ -5,7 +5,7 @@ export * from './file';
 export * from './chat';
 
 type CreateInstance = (
-  params: { files: File[]; name: string; context: string; userSettings: string },
+  params: { files: File[]; name: string; context: string; userSettings: string; llm: LLM },
   b?: (a: AxiosProgressEvent) => void,
 ) => Promise<ApiResponse<Instance>>;
 
@@ -19,6 +19,7 @@ export const createInstance: CreateInstance = (params, onUploadProgress) => {
   formData.append('name', params.name);
   formData.append('context', params.context);
   formData.append('userSettings', params.userSettings);
+  formData.append('llm', params.llm);
 
   return client({
     url: `/instances`,

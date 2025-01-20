@@ -116,6 +116,10 @@ export const InstanceItem: React.FC<InstanceItemProps> = ({ data, isProcessing }
           <Typography noWrap>{data.files.length}</Typography>
         </div>
         <div className="ii-item">
+          <Typography noWrap>Model:</Typography>
+          <Typography noWrap>{data.llm}</Typography>
+        </div>
+        <div className="ii-item">
           <Typography noWrap>Mesages:</Typography>
           <Typography noWrap>{data.chat.length}</Typography>
         </div>
