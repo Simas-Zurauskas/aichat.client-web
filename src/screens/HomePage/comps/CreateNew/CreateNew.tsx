@@ -97,6 +97,7 @@ export const CreateNew: React.FC<CreateNewProps> = ({ onCreate }) => {
             <MenuItem value={LLM.GPT4O}>{LLM.GPT4O}</MenuItem>
             <MenuItem value={LLM.GEMINI15PRO}>{LLM.GEMINI15PRO}</MenuItem>
             <MenuItem value={LLM.R1}>{LLM.R1}</MenuItem>
+            <MenuItem value={LLM.V3}>{LLM.V3}</MenuItem>
           </Select>
         </FormControl>
         <Box mb={2} />
