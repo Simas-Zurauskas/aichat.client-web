@@ -96,6 +96,7 @@ export const CreateNew: React.FC<CreateNewProps> = ({ onCreate }) => {
           <Select value={model} label="LLM" onChange={(e) => setModel(e.target.value as LLM)} size="small">
             <MenuItem value={LLM.GPT4O}>{LLM.GPT4O}</MenuItem>
             <MenuItem value={LLM.GEMINI15PRO}>{LLM.GEMINI15PRO}</MenuItem>
+            <MenuItem value={LLM.R1}>{LLM.R1}</MenuItem>
           </Select>
         </FormControl>
         <Box mb={2} />

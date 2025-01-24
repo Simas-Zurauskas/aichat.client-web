@@ -21,6 +21,7 @@ export type JobStatus = 'pending' | 'processing' | 'completed' | 'failed';
 export enum LLM {
   GPT4O = 'gpt-4o',
   GEMINI15PRO = 'gemini-1.5-pro',
+  R1 = 'r1',
 }
 
 export interface Message {

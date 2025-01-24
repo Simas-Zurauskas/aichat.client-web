@@ -53,6 +53,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
         <Select value={model} label="LLM" onChange={handleChange} size="small">
           <MenuItem value={LLM.GPT4O}>{LLM.GPT4O}</MenuItem>
           <MenuItem value={LLM.GEMINI15PRO}>{LLM.GEMINI15PRO}</MenuItem>
+          <MenuItem value={LLM.R1}>{LLM.R1}</MenuItem>
         </Select>
       </FormControl>
     </Div>
