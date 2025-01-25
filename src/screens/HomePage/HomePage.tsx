@@ -1,34 +1,72 @@
 'use client';
-import { Box, Button, Typography } from '@mui/material';
-import { CreateNew, Instances } from './comps';
-import { useState } from 'react';
+import { CircularProgress } from '@mui/material';
+import { Card, Empty, Instances } from './comps';
+import { useEffect, useState } from 'react';
 import { PageContainer } from '@/components/layout';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { QKey } from '@/types';
+import { getInstances } from '@/api/routes/instances';
+import { CreateInstanceModal } from '@/components/modal';
+import styled from '@emotion/styled';
+import { CardNew } from './comps/CardNew';
+
+const Div = styled.div`
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-gap: 16px;
+`;
 
 const HomePage = () => {
-  const [section, setSection] = useState<'instances' | 'new'>('instances');
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+
+  const queryClient = useQueryClient();
+
+  const { data = [], isLoading } = useQuery({
+    queryKey: [QKey.instances],
+    queryFn: getInstances,
+  });
+
+  useEffect(() => {
+    const isProcessing = data?.some((el) =>
+      el.files.some((el) => el.jobStatus === 'pending' || el.jobStatus === 'processing'),
+    );
+    if (isProcessing) {
+      const interval = setInterval(() => {
+        queryClient.invalidateQueries({
+          queryKey: [QKey.instances],
+        });
+      }, 1000);
+      return () => {
+        queryClient.invalidateQueries({
+          queryKey: [QKey.user],
+        });
+        clearInterval(interval);
+      };
+    }
+  }, [data]);
+
   return (
-    <PageContainer>
-      <Typography className="ptitle">Instances</Typography>
-      <Box mb={4} />
-      {section === 'instances' && (
-        <>
-          <Button variant="outlined" onClick={() => setSection('new')}>
-            + CREATE NEW
-          </Button>
-          <Box mb={2} />
-          <Instances />
-        </>
-      )}
-      {section === 'new' && (
-        <>
-          <Button variant="outlined" onClick={() => setSection('instances')}>
-            CANCEL
-          </Button>
-          <Box mb={2} />
-          <CreateNew onCreate={() => setSection('instances')} />
-        </>
-      )}
-    </PageContainer>
+    <>
+      <CreateInstanceModal open={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} />
+      <PageContainer title="Nodes">
+        {isLoading ? (
+          <CircularProgress />
+        ) : (
+          <>
+            {data.length ? (
+              <Div>
+                {data.map((el) => {
+                  return <Card key={el._id} data={el} />;
+                })}
+                {data.length < 10 && <CardNew onClick={() => setIsCreateModalOpen(true)} />}
+              </Div>
+            ) : (
+              <Empty onClick={() => setIsCreateModalOpen(true)} />
+            )}
+          </>
+        )}
+      </PageContainer>
+    </>
   );
 };
 

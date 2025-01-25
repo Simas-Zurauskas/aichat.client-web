@@ -5,13 +5,14 @@ import { FileItem } from './comps';
 import { useState } from 'react';
 import { SupportedFileTypes } from '@/types';
 import { formatBits } from '@/lib/misc';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 const Div = styled.div`
   .dropzone {
-    border: 1px dashed ${({ theme }) => theme.colors.wave1};
-    background-color: ${({ theme }) => theme.colors.wave3};
+    border: 1px dashed ${({ theme }) => theme.colors.primary};
+    background-color: #e5f1ff;
     border-radius: 4px;
-    padding: 40px 18px;
+    padding: 24px 18px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -25,7 +26,6 @@ const Div = styled.div`
 
   .files {
     display: grid;
-    gap: 4px;
   }
 `;
 
@@ -61,8 +61,8 @@ export const FileInput: React.FC<FileInputProps> = ({ files, setFiles, existingF
     <Div>
       <div {...getRootProps({ className: 'dropzone' })}>
         <input {...getInputProps()} />
-        <img src="/icon_file.png" alt="" />
-        <Typography>Drag & drop some files here or click to select files.</Typography>
+        <UploadFileIcon sx={{ marginBottom: 1 }} color="primary" />
+        <Typography variant="body2">Drag & drop some files here or click to select files.</Typography>
       </div>
       {!!files.length && (
         <>
@@ -93,11 +93,14 @@ export const FileInput: React.FC<FileInputProps> = ({ files, setFiles, existingF
         </>
       )}
       <Box mb={2} />
-      <Typography>Total size: {formatBits(totalSize)}</Typography>
+      <Typography variant="body2" fontWeight={500}>
+        Total size: {formatBits(totalSize)}
+      </Typography>
       {tooLargeError && (
         <>
-          <Box mb={2} />
-          <Alert severity="error">{tooLargeError}</Alert>
+          <Typography color="error" variant="body2" fontWeight={500}>
+            {tooLargeError}
+          </Typography>
         </>
       )}
     </Div>

@@ -13,7 +13,7 @@ import { FileDrawer, Toolbar } from './comps';
 import { FileWithPath } from 'react-dropzone';
 import { FileInput, Input } from '@/components/form';
 import { toast } from 'react-toastify';
-import { isTenMB } from '@/lib/misc';
+import { isOverUploadSize } from '@/lib/misc';
 import SettingsModal from '@/components/SettingsModal';
 
 const Main = styled.div`
@@ -107,7 +107,9 @@ const InstanceScreen = () => {
   }, [data, id, isProcessing]);
 
   const validFiles = newFiles.filter((f) => !data?.files.map((el) => el.originalName).includes(f.name));
-  const tooLargeError = isTenMB(validFiles.reduce((acc, el) => acc + el.size, 0)) ? '' : 'Total size exceeds 20MB';
+  const tooLargeError = isOverUploadSize(validFiles.reduce((acc, el) => acc + el.size, 0))
+    ? ''
+    : 'Total size exceeds 20MB';
 
   return (
     <Main>

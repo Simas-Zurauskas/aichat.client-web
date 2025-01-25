@@ -26,9 +26,7 @@ const AccountPage = () => {
   });
 
   return (
-    <PageContainer>
-      <Typography className="ptitle">Account</Typography>
-      <Box mb={4} />
+    <PageContainer title="My Account">
       <Typography>{user?.email}</Typography>
       <Box mb={2} />
       <Typography fontWeight={500}>Usage:</Typography>

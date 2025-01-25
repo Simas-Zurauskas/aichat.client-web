@@ -89,7 +89,7 @@ export const InstanceItem: React.FC<InstanceItemProps> = ({ data, isProcessing }
       <Div
         $isDeleting={isPending}
         onClick={() => {
-          !isPending && router.push(`/instance/${data.uxId}`);
+          !isPending && router.push(`/node/${data.uxId}`);
         }}
       >
         <div

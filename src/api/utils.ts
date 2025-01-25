@@ -30,12 +30,13 @@ export const makeLogout = () => {
   store.dispatch({ type: 'auth/setUser', payload: null });
 };
 
-export const generateGoogleOAuthUrl = () => {
+export const generateGoogleOAuthUrl = (state: 'signup' | 'signin') => {
   const params = new URLSearchParams({
     client_id: process.env.NEXT_PUBLIC_GOOGLE_OAUTH_CLIENT_ID as string,
     redirect_uri: `${process.env.NEXT_PUBLIC_BASE_PATH}/api/auth/google/callback`,
     response_type: 'code',
     scope: 'openid email profile',
+    state,
   });
 
   const url = `https://accounts.google.com/o/oauth2/v2/auth?${params.toString()}`;

@@ -13,7 +13,7 @@ export const formatBits = (size: number): string => {
   }
 };
 
-export const isTenMB = (size: number): boolean => {
+export const isOverUploadSize = (size: number): boolean => {
   const MB = 1000 * 1000;
   return size < 20 * MB;
 };

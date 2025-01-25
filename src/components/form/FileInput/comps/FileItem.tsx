@@ -7,9 +7,20 @@ import { useStateSelector } from '@/state';
 
 const Div = styled.div`
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   grid-gap: 8px;
+  justify-content: space-between;
+  padding: 2px;
+
+  &:hover {
+    background-color: rgba(100, 100, 150, 0.06);
+    border-radius: 4px;
+  }
+  .fend {
+    display: flex;
+    align-items: center;
+    grid-gap: 8px;
+  }
 `;
 
 interface FileItemProps {
@@ -21,10 +32,11 @@ export const FileItem: React.FC<FileItemProps> = ({ data, onRemove }) => {
   const colors = useStateSelector(({ theme }) => theme.colors);
   return (
     <Div>
-      <Typography fontSize={14}>
-        {data.name} - {formatBits(data.size)}
-      </Typography>
-      <Clear fontSize="small" sx={{ color: colors.error, cursor: 'pointer' }} onClick={() => onRemove(data)} />
+      <Typography fontSize={14}>{data.name}</Typography>
+      <div className="fend">
+        <Typography fontSize={14}>{formatBits(data.size)}</Typography>
+        <Clear fontSize="small" sx={{ color: colors.error, cursor: 'pointer' }} onClick={() => onRemove(data)} />
+      </div>
     </Div>
   );
 };

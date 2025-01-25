@@ -25,6 +25,13 @@ export enum LLM {
   V3 = 'deepSeekV3',
 }
 
+export const llmNaming = {
+  [LLM.GPT4O]: 'OpenAI GPT-4o',
+  [LLM.GEMINI15PRO]: 'Google Gemini-1.5-Pro',
+  [LLM.V3]: 'Deepseek V3',
+  [LLM.R1]: 'Deepseek R1',
+};
+
 export interface Message {
   _id: string;
   id?: string;

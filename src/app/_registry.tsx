@@ -14,8 +14,47 @@ import { authorise } from '@/api/routes/auth';
 import useActionsAuth from '@/state/actionHooks/useActionsAuth';
 import { usePathname, useRouter } from 'next/navigation';
 import useActionsTheme from '@/state/actionHooks/useActionsTheme';
-import { colorsApp } from '@/state/reducers/theme';
 import { QKey } from '@/types';
+import styled from '@emotion/styled';
+
+const GlobalStyles = styled.div`
+  .Toastify__close-button {
+    align-items: center;
+    align-self: center !important;
+  }
+
+  .Toastify__toast--success {
+    border: 1px solid ${({ theme }) => theme.colors.success} !important;
+    background-color: ${({ theme }) => theme.colors.successPale} !important;
+    color: ${({ theme }) => theme.colors.success} !important;
+
+    .Toastify__close-button {
+      color: ${({ theme }) => theme.colors.success} !important;
+    }
+
+    .Toastify__toast-icon {
+      path {
+        fill: ${({ theme }) => theme.colors.success} !important;
+      }
+    }
+  }
+
+  .Toastify__toast--error {
+    border: 1px solid ${({ theme }) => theme.colors.error} !important;
+    background-color: ${({ theme }) => theme.colors.errorPale} !important;
+    color: ${({ theme }) => theme.colors.error} !important;
+
+    .Toastify__close-button {
+      color: ${({ theme }) => theme.colors.error} !important;
+    }
+
+    .Toastify__toast-icon {
+      path {
+        fill: ${({ theme }) => theme.colors.error} !important;
+      }
+    }
+  }
+`;
 
 interface Props {
   children: React.ReactNode;
@@ -50,9 +89,21 @@ const StylesManager: React.FC<{ children: React.ReactNode }> = ({ children }) =>
           },
         },
         typography: {
-          fontFamily: 'var(--font-montserrat)',
+          fontFamily: 'var(--font-poppins)',
           allVariants: {
             color: colors.text,
+          },
+          h1: {
+            fontSize: '2.15rem',
+            fontWeight: 600,
+          },
+          h2: {
+            fontSize: '1.8rem',
+            fontWeight: 500,
+          },
+          h3: {
+            fontSize: '1.5rem',
+            fontWeight: 500,
           },
         },
       }),
@@ -68,9 +119,11 @@ const StylesManager: React.FC<{ children: React.ReactNode }> = ({ children }) =>
     <MUIThemeProvider theme={theme}>
       <EmotionThemeProvider theme={{ ...theme, colors, scheme }}>
         <AppRouterCacheProvider options={{ enableCssLayer: true }}>
-          <ToastContainer hideProgressBar autoClose={4000} theme="colored" pauseOnHover position="bottom-left" />
-          <CssBaseline />
-          {children}
+          <GlobalStyles>
+            <ToastContainer hideProgressBar autoClose={4000} theme="colored" pauseOnHover position="top-center" />
+            <CssBaseline />
+            {children}
+          </GlobalStyles>
         </AppRouterCacheProvider>
       </EmotionThemeProvider>
     </MUIThemeProvider>
@@ -115,7 +168,7 @@ const AuthManager: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   useLayoutEffect(() => {
     const globalPaths = [/^\/terms-and-conditions$/, /^\/privacy-policy$/];
-    const signedInPaths = [/^\/$/, /^\/account$/, /^\/instance\/[a-zA-Z0-9-]+$/];
+    const signedInPaths = [/^\/$/, /^\/account$/, /^\/node\/[a-zA-Z0-9-]+$/];
 
     const isPathMatch = (pathArray: RegExp[], pathname: string) => pathArray.some((el) => el.test(pathname));
 
@@ -130,20 +183,6 @@ const AuthManager: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       }
     }
   }, [isSignedIn, authStatus, pathname]);
-
-  // useLayoutEffect(() => {
-  //   const globalPaths = ['/terms-and-conditions', '/privacy-policy'];
-  //   const signedInPaths = ['/', '/account'];
-
-  //   if (authStatus === 'authorized' && !globalPaths.includes(pathname)) {
-  //     if (isSignedIn) {
-  //       if (signedInPaths.includes(pathname)) return;
-  //       router.replace('/');
-  //     } else {
-  //       router.replace('/auth');
-  //     }
-  //   }
-  // }, [isSignedIn, authStatus, pathname]);
 
   if (authStatus === 'uninitialized') return null;
   if (authStatus === 'authorizing') return 'Authorizing...';

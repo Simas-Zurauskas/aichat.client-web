@@ -1,11 +1,7 @@
 'use client';
-import { authorise } from '@/api/routes/auth';
-import { getToken, removeToken } from '@/api/utils';
-import Nav from '@/components/Nav';
 import { useStateSelector } from '@/state';
-import useActionsAuth from '@/state/actionHooks/useActionsAuth';
 import { useRouter } from 'next/navigation';
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect } from 'react';
 import styled from '@emotion/styled';
 import Aside from '@/components/main/Aside';
 
@@ -13,7 +9,7 @@ const Div = styled.div`
   height: 100vh;
   position: relative;
   display: grid;
-  grid-template-columns: 220px 1fr;
+  grid-template-columns: 300px 1fr;
 
   main {
     height: 100%;
