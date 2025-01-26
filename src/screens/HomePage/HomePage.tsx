@@ -1,6 +1,6 @@
 'use client';
 import { CircularProgress } from '@mui/material';
-import { Card, Empty, Instances } from './comps';
+import { Card, Empty } from './comps';
 import { useEffect, useState } from 'react';
 import { PageContainer } from '@/components/layout';
 import { useQuery, useQueryClient } from '@tanstack/react-query';

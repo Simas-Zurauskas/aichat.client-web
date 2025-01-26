@@ -70,6 +70,7 @@ export const colorsApp: { light: ColorSet; dark: ColorSet } = {
     text: colorLib.text,
     textWhite: colorLib.textWhite,
     primary: colorLib.primary,
+    secondary: colorLib.blue,
     blue: colorLib.blue,
     success: colorLib.success,
     successPale: colorLib.sucessPale,
@@ -80,7 +81,6 @@ export const colorsApp: { light: ColorSet; dark: ColorSet } = {
     asideActive: colorLib.asideActive,
     card: colorLib.card,
 
-    secondary: colorLib.tropicalTeal,
     background: colorLib.white,
     cardBorder: colorLib.cardBorder,
 
@@ -93,6 +93,7 @@ export const colorsApp: { light: ColorSet; dark: ColorSet } = {
     text: colorLib.text,
     textWhite: colorLib.textWhite,
     primary: colorLib.primary,
+    secondary: colorLib.blue,
     blue: colorLib.blue,
     success: colorLib.success,
     successPale: colorLib.sucessPale,
@@ -103,7 +104,6 @@ export const colorsApp: { light: ColorSet; dark: ColorSet } = {
     asideActive: colorLib.asideActive,
     card: colorLib.card,
 
-    secondary: colorLib.tropicalTealDark,
     background: colorLib.black,
     cardBorder: colorLib.cardBorderDark,
 

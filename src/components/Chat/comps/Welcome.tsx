@@ -1,32 +1,19 @@
-import { Button } from '@/components/form';
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
 
 const Div = styled.div`
-  height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
   flex-direction: column;
-
-  button {
-    color: ${({ theme }) => theme.colors.blue};
-    width: 300px;
-    height: 140px;
-    font-size: 24px;
-    font-weight: 400;
-    background-color: #e5f1ff;
-    &:hover {
-      background-color: #d6e8ff;
-    }
+  align-items: center;
+  padding: 0 40px;
+  p {
+    max-width: 700px;
   }
 `;
 
-interface EmptyProps {
-  onClick: () => void;
-}
+interface WelcomeProps {}
 
-export const Empty: React.FC<EmptyProps> = ({ onClick }) => {
+export const Welcome: React.FC<WelcomeProps> = () => {
   return (
     <Div>
       <svg width="68" height="78" viewBox="0 0 68 78" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -37,20 +24,24 @@ export const Empty: React.FC<EmptyProps> = ({ onClick }) => {
       </svg>
       <Box mt={4} />
       <Typography variant="h4" sx={{ fontWeight: 500 }}>
-        🚀 Launch Your First AI Workspace
+        Chat Powered by Your Documents
       </Typography>
       <Box mt={2} />
       <Typography variant="body1" textAlign="center">
-        Transform documents into intelligent conversations.
+        This chat understands <strong>your PDF/DOCX files</strong>.
         <br />
-        Click <strong>+ Create</strong> to upload PDF/DOCX files and create your
+        Ask questions, request summaries, or explore connections -
         <br />
-        secure, encrypted AI environment that evolves with your content.
+        responses are contextualized using your uploaded data.
       </Typography>
-      <Box mt={6} />
-      <Button variant="outlined" onClick={onClick}>
-        + Create
-      </Button>
+      <Box mt={2} />
+      <Typography variant="body2" color="text.secondary" textAlign="center">
+        <Box component="span" sx={{ fontStyle: 'italic' }}>
+          Secure & Temporary:{' '}
+        </Box>
+        Files encrypted (AES-256) on AWS S3 • Node auto-deletes in 30 days
+      </Typography>
+      <Box mt={4} />
     </Div>
   );
 };

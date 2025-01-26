@@ -31,4 +31,17 @@ export const Input = styled(TextField)`
   textarea {
     color: ${({ theme }) => theme.colors.text};
   }
+
+  textarea {
+    padding: 0 !important;
+  }
+
+  .MuiInputBase-multiline {
+    padding: 13px 14px !important;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    color: #76849a;
+  }
 `;

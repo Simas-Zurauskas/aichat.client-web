@@ -86,6 +86,17 @@ const Main = styled.main`
       display: flex;
       align-items: center;
     }
+
+    &__bottom {
+      position: absolute;
+      bottom: 10px;
+      left: 20px;
+      width: 100%;
+      * {
+        user-select: text;
+        color: #496587b1 !important;
+      }
+    }
   }
 
   .visual {
@@ -259,6 +270,17 @@ const AuthPage = () => {
                   </div>
                 </div>
               )}
+              <div className="form__bottom">
+                <Typography variant="body2">
+                  © {new Date().getFullYear()} Simas Žurauskas. All rights reserved.
+                </Typography>
+                <Typography variant="body2">
+                  Contact:{' '}
+                  <a href="mailto:simaszurauskas@gmail.com" target="_blank">
+                    simaszurauskas@gmail.com
+                  </a>
+                </Typography>
+              </div>
             </>
           ) : (
             <div className="form__loading">

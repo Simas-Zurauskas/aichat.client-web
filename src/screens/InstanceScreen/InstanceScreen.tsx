@@ -1,88 +1,44 @@
 'use client';
-import { delChat, getInstance, uploadFiles } from '@/api/routes/instances';
+import { getInstance } from '@/api/routes/instances';
 import Chat from '@/components/Chat';
-import { Processing } from '@/components/common';
 import { PageContainer } from '@/components/layout';
 import { QKey } from '@/types';
 import styled from '@emotion/styled';
-import { Box, Button, Container, Typography } from '@mui/material';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { FileDrawer, Toolbar } from './comps';
-import { FileWithPath } from 'react-dropzone';
-import { FileInput, Input } from '@/components/form';
-import { toast } from 'react-toastify';
-import { isOverUploadSize } from '@/lib/misc';
+import { Toolbar } from './comps';
 import SettingsModal from '@/components/SettingsModal';
+import { Loading } from '@/components/Loading';
 
 const Main = styled.div`
   display: grid;
   grid-template-columns: 1fr 300px;
-  height: 100%;
-`;
 
-const Wrap = styled(PageContainer)`
-  display: flex;
-  flex-direction: column;
-  max-width: 800px;
-  flex: 1;
-  max-height: 100vh;
-  .head {
-    /* border: 1px solid white; */
+  .chat {
+    padding: 0 38px;
+    overflow-y: auto;
+    height: calc(100vh - 120px);
     display: flex;
-    justify-content: space-between;
-    &__meta {
-      display: flex;
-      align-items: center;
-      grid-gap: 16px;
-      /* border: 1px solid red; */
-    }
+    align-items: center;
+    justify-content: center;
+  }
+
+  .toolbar {
+    background-color: #ecf1f6;
+    border-left: 1px solid #e0e0e0;
   }
 `;
 
 const InstanceScreen = () => {
   const { id } = useParams<{ id: string }>();
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isFileDrawerOpen, setIsFileDrawerOpen] = useState(false);
-  const [addFilesMode, setAddFilesMode] = useState(false);
-  const [newFiles, setNewFiles] = useState<FileWithPath[]>([]);
-  const [context, setContext] = useState('');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const queryClient = useQueryClient();
 
   const { data, isLoading, error } = useQuery({
     queryKey: [QKey.instance, id],
     queryFn: () => getInstance(id),
-  });
-
-  const { mutate, isPending } = useMutation({
-    mutationFn: uploadFiles,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QKey.instance, id],
-      });
-      toast.success('Files uploaded');
-      setAddFilesMode(false);
-      setNewFiles([]);
-      setContext('');
-    },
-    onError: () => {
-      toast.error('Error uploading files');
-    },
-  });
-
-  const { mutate: mutateDelChat, isPending: isPendingDelChat } = useMutation({
-    mutationFn: delChat,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: [QKey.chat, id],
-      });
-      toast.success('Chat cleared');
-    },
-    onError: () => {
-      toast.error('Error clearing chat');
-    },
   });
 
   useEffect(() => {
@@ -106,110 +62,22 @@ const InstanceScreen = () => {
     }
   }, [data, id, isProcessing]);
 
-  const validFiles = newFiles.filter((f) => !data?.files.map((el) => el.originalName).includes(f.name));
-  const tooLargeError = isOverUploadSize(validFiles.reduce((acc, el) => acc + el.size, 0))
-    ? ''
-    : 'Total size exceeds 20MB';
-
   return (
-    <Main>
-      <Wrap>
-        <SettingsModal
-          id={id}
-          isOpen={isSettingsOpen}
-          onClose={() => setIsSettingsOpen(false)}
-          value={data?.userSettings || ''}
-        />
-        {data && (
-          <>
-            <FileDrawer isOpen={isFileDrawerOpen} onClose={() => setIsFileDrawerOpen(false)} files={data.files} />
-            <div className="head">
-              <Typography className="ptitle">{data?.name}</Typography>
-              <div className="head__meta">
-                {!addFilesMode && (
-                  <>
-                    <Typography>Vectors: {data?.files.reduce((acc, el) => acc + el.vectorCount, 0)}</Typography>
-                    <Button variant="contained" size="small" onClick={() => setIsFileDrawerOpen(true)}>
-                      Files ({data?.files.length})
-                    </Button>
-                  </>
-                )}
-                <Button
-                  variant="contained"
-                  size="small"
-                  onClick={() => {
-                    if (addFilesMode) {
-                      setNewFiles([]);
-                    }
-                    setAddFilesMode(!addFilesMode);
-                  }}
-                  disabled={isPending}
-                >
-                  {addFilesMode ? 'CANCEL' : '+ ADD FILES'}
-                </Button>
-                {!addFilesMode && (
-                  <>
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={() => setIsSettingsOpen(true)}
-                      disabled={isPendingDelChat}
-                    >
-                      Settings
-                    </Button>
-                    <Button
-                      color="error"
-                      variant="outlined"
-                      size="small"
-                      onClick={() => mutateDelChat(id)}
-                      disabled={isPendingDelChat}
-                    >
-                      Clear
-                    </Button>
-                  </>
-                )}
-              </div>
-            </div>
-            {!addFilesMode && <Typography>User settings: {data.userSettings || <i>None</i>}</Typography>}
-            {isProcessing && <Processing />}
-            {!addFilesMode && <Chat id={id} />}
-            {addFilesMode && (
-              <>
-                <Input
-                  label="Context (optional)"
-                  value={context}
-                  size="small"
-                  onChange={(e) => setContext(e.target.value)}
-                />
-                <Box mt={2} />
+    <>
+      <SettingsModal
+        id={id}
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        value={data?.userSettings || ''}
+      />
 
-                <FileInput
-                  files={newFiles}
-                  setFiles={setNewFiles}
-                  existingFileNames={data.files.map((el) => el.originalName)}
-                  tooLargeError={tooLargeError}
-                />
-                {!!newFiles.length && (
-                  <div>
-                    <Box mt={2} />
-                    <Button
-                      variant="contained"
-                      size="small"
-                      onClick={() => mutate({ files: newFiles, uxId: id, context })}
-                      disabled={isPending || !!tooLargeError}
-                    >
-                      UPLOAD
-                    </Button>
-                  </div>
-                )}
-              </>
-            )}
-          </>
-        )}
-      </Wrap>
-
-      {data && <Toolbar data={data} />}
-    </Main>
+      <PageContainer title={data?.name || ''} contentStyle={{ padding: 0 }}>
+        <Main>
+          <div className="chat">{data ? <>{data && <Chat id={id} />}</> : <Loading />}</div>
+          <div className="toolbar">{data && <Toolbar data={data} />}</div>
+        </Main>
+      </PageContainer>
+    </>
   );
 };
 

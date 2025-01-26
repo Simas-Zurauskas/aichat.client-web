@@ -92,3 +92,13 @@ export const setLLM: SetLLM = ({ instanceUxId, ...data }) => {
   }).then((res) => res.data.data);
 };
 // ----------------------------------------------------------------------------------------
+
+type ExtendAccess = (instanceUxId: string) => Promise<ApiResponse<Message[]>>;
+
+export const extendAccess: ExtendAccess = (instanceUxId) => {
+  return client({
+    url: `/instances/${instanceUxId}/extend`,
+    method: 'PUT',
+  }).then((res) => res.data.data);
+};
+// ----------------------------------------------------------------------------------------

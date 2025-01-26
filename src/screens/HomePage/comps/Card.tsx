@@ -1,7 +1,7 @@
 import { delInstance } from '@/api/routes/instances';
 import { Instance, llmNaming } from '@/api/types';
 import Dialog from '@/components/Dialog';
-import { formatDate } from '@/lib/misc';
+import { formatDate, numeralFormat } from '@/lib/misc';
 import { useStateSelector } from '@/state';
 import { QKey } from '@/types';
 import styled from '@emotion/styled';
@@ -171,7 +171,7 @@ export const Card: React.FC<CardProps> = ({ data }) => {
           </Typography>
           <div className="ccontent__item">
             <Typography noWrap>Vectors:</Typography>
-            <Typography noWrap>{data.files.reduce((acc, el) => acc + el.vectorCount, 0)}</Typography>
+            <Typography noWrap>{numeralFormat(data.files.reduce((acc, el) => acc + el.vectorCount, 0))}</Typography>
           </div>
           <div className="ccontent__item">
             <Typography noWrap>Files:</Typography>

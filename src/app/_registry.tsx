@@ -85,7 +85,7 @@ const StylesManager: React.FC<{ children: React.ReactNode }> = ({ children }) =>
             main: colors.primary,
           },
           secondary: {
-            main: colors.background,
+            main: colors.blue,
           },
         },
         typography: {

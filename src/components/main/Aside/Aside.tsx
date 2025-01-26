@@ -46,8 +46,6 @@ const Aside: React.FC<AsideProps> = () => {
           label={<Typography sx={{ color: colors.textWhite, ml: 2 }}>Dark mode</Typography>}
         />
       </FormGroup>
-      <Box mb={2} />
-      <Typography style={{ color: colors.textWhite }}>2025 @Mega corp</Typography>
     </Div>
   );
 };

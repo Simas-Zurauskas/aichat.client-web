@@ -3,16 +3,24 @@ import { QKey } from '@/types';
 import styled from '@emotion/styled';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import React, { useState, useRef, useEffect, useCallback, KeyboardEvent } from 'react';
-import { Msg, Thinking } from './comps';
+import { Msg, Thinking, Welcome } from './comps';
 import { Message } from '@/api/types';
 import { toast } from 'react-toastify';
+import { Button, Input } from '../form';
+import { useStateSelector } from '@/state';
 
-const Div = styled.div`
-  /* max-width: 600px; */
-  border: 1px solid gray;
-  height: calc(100% - 50px);
+const Div = styled.div<{ isEmpty: boolean }>`
+  height: 100%;
   display: flex;
   flex-direction: column;
+  flex: 1;
+  max-width: 745px;
+
+  justify-content: ${({ isEmpty }) => (isEmpty ? 'center' : 'unset')};
+
+  .empty {
+    border: 1px solid red;
+  }
 
   .messages {
     flex: 1;
@@ -25,14 +33,51 @@ const Div = styled.div`
 
   .input {
     flex-shrink: 0;
-    /* background-color: green; */
     width: 100%;
     padding: 1px 16px 16px 16px;
+    display: flex;
+    &__wrap {
+      background-color: ${({ theme }) => theme.colors.card};
+      border-radius: 8px;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+      border: 1px solid ${({ theme }) => theme.colors.blue};
+      border-radius: 8px;
+    }
+    .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+      border: 1px solid ${({ theme }) => theme.colors.blue};
+      border-radius: 8px;
+    }
+    .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+      border: 2px solid ${({ theme }) => theme.colors.blue};
+      border-radius: 8px;
+    }
+
+    .MuiFormLabel-root {
+      color: ${({ theme }) => theme.colors.blue};
+    }
 
     input {
-      width: 100%;
-      padding: 0.5rem;
+      padding-top: 13px;
+      padding-bottom: 13px;
     }
+  }
+`;
+
+const SendBtn = styled(Button)`
+  margin-left: 0.5rem;
+  border-radius: 8px;
+  min-width: 48px;
+  height: 48px;
+  color: ${({ theme }) => theme.colors.blue};
+  border: 1px solid ${({ theme }) => theme.colors.blue};
+  background-color: ${({ theme }) => theme.colors.card};
+
+  &:hover {
+    background-color: #e5f1ff;
   }
 `;
 
@@ -44,6 +89,7 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
   const [text, setText] = useState('');
   const [shouldAutoScroll, setShouldAutoScroll] = useState(true);
   const messagesRef = useRef<HTMLDivElement | null>(null);
+  const colors = useStateSelector(({ theme }) => theme.colors);
 
   const queryClient = useQueryClient();
 
@@ -75,10 +121,11 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
   }, [messages, shouldAutoScroll, scrollToBottom]);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent default behavior (e.g., form submission)
       sendMessage();
     }
+    // If Shift + Enter is pressed, the default behavior (new line) will occur
   };
 
   // sendChatMessage
@@ -109,24 +156,44 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
     setShouldAutoScroll(nearBottom);
   };
 
+  const isDisabled = isPending || !text.trim();
+  const isEmpty = !messages.length;
+
   return (
-    <Div>
-      <div className="messages" ref={messagesRef} onScroll={handleScroll}>
-        {messages.map((msg) => (
-          <Msg key={msg._id} data={msg} instanceUxId={id} />
-        ))}
-        {isPending && <Thinking />}
-      </div>
+    <Div isEmpty={isEmpty}>
+      {!isEmpty && (
+        <div className="messages" ref={messagesRef} onScroll={handleScroll}>
+          {messages.map((msg) => (
+            <Msg key={msg._id} data={msg} instanceUxId={id} />
+          ))}
+          {isPending && <Thinking />}
+        </div>
+      )}
+
+      {isEmpty && <Welcome />}
 
       <div className="input">
-        <input
-          type="text"
-          placeholder="Type your message..."
-          disabled={isPending}
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          onKeyDown={handleKeyDown}
-        />
+        <div className="input__wrap">
+          <Input
+            placeholder="“Generate a TL;DR” or “Break down the workflow”…"
+            disabled={isPending}
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            onKeyDown={handleKeyDown}
+            fullWidth
+            multiline
+            maxRows={3}
+          />
+        </div>
+        <SendBtn variant="outlined" onClick={() => sendMessage()} disabled={isDisabled}>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M4.4 19.4251C4.06667 19.5585 3.75 19.5291 3.45 19.3371C3.15 19.1451 3 18.8661 3 18.5001V14.0001L11 12.0001L3 10.0001V5.50014C3 5.13347 3.15 4.85447 3.45 4.66314C3.75 4.4718 4.06667 4.44247 4.4 4.57514L19.8 11.0751C20.2167 11.2585 20.425 11.5668 20.425 12.0001C20.425 12.4335 20.2167 12.7418 19.8 12.9251L4.4 19.4251Z"
+              fill={colors.blue}
+              opacity={isDisabled ? 0.7 : 1}
+            />
+          </svg>
+        </SendBtn>
       </div>
     </Div>
   );

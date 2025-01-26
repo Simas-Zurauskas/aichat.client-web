@@ -8,5 +8,5 @@ export const Button = styled(MuiButton)`
   font-weight: 500;
   border-radius: 8px;
 
-  color: ${({ theme }) => theme.colors.textWhite};
+  /* color: ${({ theme }) => theme.colors.textWhite}; */
 `;

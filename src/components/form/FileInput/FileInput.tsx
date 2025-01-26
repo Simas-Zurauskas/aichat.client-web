@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Alert, Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { FileWithPath, useDropzone } from 'react-dropzone';
 import { FileItem } from './comps';
 import { useState } from 'react';
@@ -81,15 +81,15 @@ export const FileInput: React.FC<FileInputProps> = ({ files, setFiles, existingF
       {!!ignoredFiles.length && (
         <>
           <Box mb={2} />
-          <Alert severity="warning">
-            The following files were ignored as they already exist in the instance:
+          <Typography color="error" variant="body2" style={{ maxWidth: 450 }}>
+            These files already exist in this chat instance:
             <br />
-            <b>
-              {ignoredFiles.map((el) => (
-                <div>{el}</div>
-              ))}
-            </b>
-          </Alert>
+            {ignoredFiles.map((el) => (
+              <Typography color="error" variant="body2" fontWeight={500}>
+                {el}
+              </Typography>
+            ))}
+          </Typography>
         </>
       )}
       <Box mb={2} />

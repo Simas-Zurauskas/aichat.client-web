@@ -5,7 +5,8 @@ export const Wrap = styled.div`
   background-color: ${({ theme }) => theme.colors.appBgBack};
   padding: 24px;
   padding-left: 0px;
-  height: 100%;
+  height: 100vh;
+  max-height: 100vh;
   flex: 1;
 
   main {
@@ -36,15 +37,20 @@ export const Wrap = styled.div`
 interface PageContainerProps {
   title: string;
   children: React.ReactNode;
+  style?: React.CSSProperties;
+  contentStyle?: React.CSSProperties;
 }
-export const PageContainer: React.FC<PageContainerProps> = ({ title, children }) => {
+
+export const PageContainer: React.FC<PageContainerProps> = ({ title, children, style, contentStyle }) => {
   return (
-    <Wrap>
+    <Wrap style={style}>
       <main>
         <div className="head">
           <Typography variant="h2">{title}</Typography>
         </div>
-        <div className="content">{children}</div>
+        <div className="content" style={contentStyle}>
+          {children}
+        </div>
       </main>
     </Wrap>
   );
