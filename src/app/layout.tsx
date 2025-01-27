@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: 'ProMax.AI',
     images: [
       {
-        url: `${SITE_URL}/og.png`,
+        url: `${SITE_URL}/ogimg.png`,
       },
     ],
   },
