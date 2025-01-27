@@ -21,9 +21,24 @@ const poppins = localFont({
   variable: '--font-poppins',
 });
 
+const SITE_URL = 'https://promaxai.simas.tech';
+
 export const metadata: Metadata = {
   title: 'ProMax.AI',
   description: 'description',
+  openGraph: {
+    type: 'website',
+    url: SITE_URL,
+    title: 'ProMax.AI',
+    description: 'Your Personal AI Workspace for Smarter Conversations',
+    siteName: 'ProMax.AI',
+    images: [
+      {
+        url: `${SITE_URL}/og.png`,
+      },
+    ],
+  },
+  colorScheme: 'light dark',
 };
 
 export default function RootLayout({

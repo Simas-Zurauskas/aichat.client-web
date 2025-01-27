@@ -37,9 +37,13 @@ const AccountPage = () => {
         Usage resets at: <span style={{ fontWeight: 500 }}>{formatDate(user?.usage.cycleReset)}</span>
       </Alert>
       <Box mb={4} />
-      <Link href="/terms-and-conditions">Terms and conditions</Link>
+      <Link href="/terms-of-service" target="_blank">
+        Terms of service
+      </Link>
       <div />
-      <Link href="/privacy-policy">Privacy policy</Link>
+      <Link href="/privacy-policy" target="_blank">
+        Privacy policy
+      </Link>
 
       <Box mb={4} />
       <Button variant="outlined" onClick={makeLogout}>

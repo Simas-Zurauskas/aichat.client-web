@@ -22,7 +22,7 @@ export const formatDate = (date?: string): string => {
   if (!date) {
     return '';
   }
-  return moment(date).format('DD-MM-YYYY HH:mm');
+  return moment(date).format('DD-MM-YYYY');
 };
 
 export const numeralFormat = (N?: number | null): string => {

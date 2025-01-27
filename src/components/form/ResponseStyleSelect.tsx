@@ -1,7 +1,6 @@
-import { LLM, llmNaming } from '@/api/types';
+import { ResponseStyle, responseStyleNaming } from '@/api/types';
 import styled from '@emotion/styled';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import { Input } from './Input';
 
 const Wrap = styled(FormControl)<{ variantColor: 'primary' | 'secondary' }>`
   .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
@@ -31,9 +30,9 @@ const Wrap = styled(FormControl)<{ variantColor: 'primary' | 'secondary' }>`
   }
 `;
 
-interface LlmSelectProps {
-  value?: LLM | null;
-  onChange: (value: LLM) => void;
+interface ResponseStyleSelectProps {
+  value?: ResponseStyle | null;
+  onChange: (value: ResponseStyle) => void;
   error?: boolean;
   color?: 'primary' | 'secondary';
   disabled?: boolean;
@@ -41,7 +40,13 @@ interface LlmSelectProps {
   required?: boolean;
 }
 
-export const LlmSelect: React.FC<LlmSelectProps> = ({
+// "Super Focused" (0) - Generates the most precise and strict responses.
+// "Precise" (0.25) - Offers focused but slightly flexible answers.
+// "Balanced" (0.5) - Combines accuracy and creativity equally.
+// "Creative" (0.75) - Provides more diverse and imaginative responses.
+// "Highly Creative" (1) - Generates the most varied and exploratory answers.
+
+export const ResponseStyleSelect: React.FC<ResponseStyleSelectProps> = ({
   value,
   onChange,
   error,
@@ -52,19 +57,20 @@ export const LlmSelect: React.FC<LlmSelectProps> = ({
 }) => {
   return (
     <Wrap size="small" error={error} fullWidth required={required} variantColor={color}>
-      <InputLabel>LLM</InputLabel>
+      <InputLabel>Response Style (temperature)</InputLabel>
       <Select
         value={value}
-        onChange={(e) => onChange(e.target.value as LLM)}
-        label="LLM"
+        onChange={(e) => onChange(e.target.value as ResponseStyle)}
+        label="Response Style (temperature)"
         color="secondary"
         disabled={disabled}
         onBlur={onBlur}
       >
-        <MenuItem value={LLM.GPT4O}>{llmNaming[LLM.GPT4O]}</MenuItem>
-        <MenuItem value={LLM.GEMINI15PRO}>{llmNaming[LLM.GEMINI15PRO]}</MenuItem>
-        <MenuItem value={LLM.V3}>{llmNaming[LLM.V3]}</MenuItem>
-        <MenuItem value={LLM.R1}>{llmNaming[LLM.R1]}</MenuItem>
+        <MenuItem value={ResponseStyle.SuperFocused}>{responseStyleNaming[ResponseStyle.SuperFocused]}</MenuItem>
+        <MenuItem value={ResponseStyle.Precise}>{responseStyleNaming[ResponseStyle.Precise]}</MenuItem>
+        <MenuItem value={ResponseStyle.Balanced}>{responseStyleNaming[ResponseStyle.Balanced]}</MenuItem>
+        <MenuItem value={ResponseStyle.Creative}>{responseStyleNaming[ResponseStyle.Creative]}</MenuItem>
+        <MenuItem value={ResponseStyle.HighlyCreative}>{responseStyleNaming[ResponseStyle.HighlyCreative]}</MenuItem>
       </Select>
     </Wrap>
   );

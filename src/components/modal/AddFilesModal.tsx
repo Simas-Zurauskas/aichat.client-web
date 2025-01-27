@@ -88,10 +88,10 @@ export const AddFilesModal: React.FC<AddFilesModalProps> = ({ open, onClose, dat
           name="context"
           onChange={handleChange}
           variant="outlined"
-          label="File context (optional)"
+          label="File context"
           size="small"
           value={values.context}
-          placeholder='e.g. "Draft for presentation"'
+          placeholder='e.g. "These files contains the results of the experiment"'
           fullWidth
         />
         <Box mb={3} />

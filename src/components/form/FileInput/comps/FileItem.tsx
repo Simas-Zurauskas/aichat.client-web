@@ -34,7 +34,9 @@ export const FileItem: React.FC<FileItemProps> = ({ data, onRemove }) => {
     <Div>
       <Typography fontSize={14}>{data.name}</Typography>
       <div className="fend">
-        <Typography fontSize={14}>{formatBits(data.size)}</Typography>
+        <Typography fontSize={14} noWrap>
+          {formatBits(data.size)}
+        </Typography>
         <Clear fontSize="small" sx={{ color: colors.error, cursor: 'pointer' }} onClick={() => onRemove(data)} />
       </div>
     </Div>

@@ -16,7 +16,7 @@ const Main = styled.div`
   grid-template-columns: 1fr 300px;
 
   .chat {
-    padding: 0 38px;
+    /* padding: 0 38px; */
     overflow-y: auto;
     height: calc(100vh - 120px);
     display: flex;

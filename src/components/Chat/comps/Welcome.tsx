@@ -28,18 +28,18 @@ export const Welcome: React.FC<WelcomeProps> = () => {
       </Typography>
       <Box mt={2} />
       <Typography variant="body1" textAlign="center">
-        This chat understands <strong>your PDF/DOCX files</strong>.
+        This chat is powered by <strong>your PDF/DOCX files</strong>.
         <br />
-        Ask questions, request summaries, or explore connections -
+        Ask questions, request summaries, or uncover insights -
         <br />
-        responses are contextualized using your uploaded data.
+        all responses are tailored to your uploaded content.
       </Typography>
       <Box mt={2} />
       <Typography variant="body2" color="text.secondary" textAlign="center">
         <Box component="span" sx={{ fontStyle: 'italic' }}>
           Secure & Temporary:{' '}
         </Box>
-        Files encrypted (AES-256) on AWS S3 • Node auto-deletes in 30 days
+        Files are encrypted (AES-256) and stored on AWS S3 • Chats and files auto-delete after 30 days
       </Typography>
       <Box mt={4} />
     </Div>

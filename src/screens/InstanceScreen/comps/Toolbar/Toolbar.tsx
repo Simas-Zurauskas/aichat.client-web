@@ -1,11 +1,11 @@
-import { delChat, extendAccess, getChat, setLLM } from '@/api/routes/instances';
-import { Instance, LLM } from '@/api/types';
-import { Button, LlmSelect } from '@/components/form';
+import { delChat, extendAccess, getChat, setLLM, setTemperature } from '@/api/routes/instances';
+import { Instance, LLM, ResponseStyle } from '@/api/types';
+import { Button, LlmSelect, ResponseStyleSelect } from '@/components/form';
 import { numeralFormat } from '@/lib/misc';
 import { useStateSelector } from '@/state';
 import { QKey } from '@/types';
 import styled from '@emotion/styled';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -24,6 +24,12 @@ const Div = styled.div`
     display: flex;
     justify-content: space-between;
   }
+
+  .processing {
+    display: flex;
+    grid-gap: 8px;
+    align-items: center;
+  }
 `;
 
 interface ToolbarProps {
@@ -33,7 +39,6 @@ interface ToolbarProps {
 export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
   const user = useStateSelector(({ auth }) => auth.user);
   const colors = useStateSelector(({ theme }) => theme.colors);
-  const [model, setModel] = useState(data.llm);
   const [isFileDrawerOpen, setIsFileDrawerOpen] = useState(false);
   const [isAddFilesModalOpen, setIsAddFilesModalOpen] = useState(false);
   const [isCiOpen, setIsCiOpen] = useState(false);
@@ -58,6 +63,18 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
       toast.error('Something went wrong');
     },
   });
+  const { mutate: mutateRs, isPending: isPendingRs } = useMutation({
+    mutationFn: setTemperature,
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: [QKey.instance, data.uxId],
+      });
+      toast.success('Response style updated');
+    },
+    onError: () => {
+      toast.error('Something went wrong');
+    },
+  });
 
   const { mutate: extend, isPending: isPendingExtend } = useMutation({
     mutationFn: extendAccess,
@@ -65,6 +82,7 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
       await queryClient.invalidateQueries({
         queryKey: [QKey.instance, data.uxId],
       });
+      setIsExtendOpen(false);
       toast.success('Node lifetime extended');
     },
     onError: () => {
@@ -85,10 +103,14 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
     },
   });
 
-  const handleChange = (llm: LLM) => {
-    setModel(llm);
+  const handleChangeLLM = (llm: LLM) => {
     mutate({ instanceUxId: data.uxId, llm });
   };
+  const handleChangeRS = (temperature: ResponseStyle) => {
+    mutateRs({ instanceUxId: data.uxId, temperature });
+  };
+
+  const isProcessing = data?.files.some((el) => el.jobStatus === 'pending' || el.jobStatus === 'processing');
 
   return (
     <>
@@ -125,6 +147,10 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
         </div>
         <Box mb={2} />
 
+        <LlmSelect value={data.llm} onChange={handleChangeLLM} color="secondary" disabled={isPending} />
+        <Box mb={2} />
+        <ResponseStyleSelect value={data.temperature} onChange={handleChangeRS} disabled={isPendingRs} />
+        <Box mb={2} />
         <Button variant="outlined" color="secondary" onClick={() => setIsFileDrawerOpen(true)}>
           <InsertDriveFileOutlined
             sx={{
@@ -134,8 +160,6 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
           />
           View files ({data?.files.length})
         </Button>
-        <Box mb={2} />
-        <LlmSelect value={model} onChange={handleChange} color="secondary" disabled={isPending} />
         <Box mb={2} />
         <Button variant="outlined" color="secondary" onClick={() => setIsAddFilesModalOpen(true)}>
           + Add files
@@ -151,6 +175,16 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
           />
           Custom instructions
         </Button>
+
+        {isProcessing && (
+          <>
+            <Box mb={2} />
+            <div className="processing">
+              <CircularProgress size={16} />
+              <Typography>Processing...</Typography>
+            </div>
+          </>
+        )}
 
         <Box mb={2} sx={{ marginTop: 'auto' }} />
         <Button variant="outlined" color="secondary" onClick={() => setIsExtendOpen(true)}>

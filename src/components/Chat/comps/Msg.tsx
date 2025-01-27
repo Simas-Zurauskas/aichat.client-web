@@ -3,22 +3,30 @@ import { Typography } from '@mui/material';
 import styled from '@emotion/styled';
 import { MsgWrap } from './styled';
 import { Button } from '@/components/form';
-import { ThumbUp, ThumbDown } from '@mui/icons-material';
+import { ThumbUp, ThumbDown, ThumbUpAltOutlined, ThumbDownAltOutlined, ContentCopyOutlined } from '@mui/icons-material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { leaveFeedback } from '@/api/routes/instances';
 import { toast } from 'react-toastify';
 import { QKey } from '@/types';
+import RevealFx from '@/components/RevealFX';
 
 const Div = styled.div`
   display: flex;
-  grid-gap: 8px;
+  grid-gap: 4px;
+  flex-direction: column;
+
   .msg-panel {
     display: flex;
-    flex-direction: column;
-    grid-gap: 8px;
+    opacity: 0.7;
     button {
-      min-width: 32px !important;
-      width: 32px !important;
+      min-width: 28px;
+      width: 28px;
+      border: none;
+    }
+
+    &__copy {
+      min-width: 70px !important;
+      width: 70px !important;
     }
   }
 `;
@@ -43,9 +51,8 @@ export const Msg: React.FC<MsgProps> = ({ data, instanceUxId }) => {
     },
   });
 
-  console.log('data', data);
-
   return (
+    // <RevealFx speed="medium" trigger={true} translateY={0} delay={0}>
     <Div>
       <MsgWrap $isAI={isAI}>
         <Typography>{data.content}</Typography>
@@ -53,7 +60,7 @@ export const Msg: React.FC<MsgProps> = ({ data, instanceUxId }) => {
       {isAI && (
         <div className="msg-panel">
           <Button
-            variant={data.feedback === 'positive' ? 'contained' : 'outlined'}
+            variant={'outlined'}
             onClick={() => {
               const feedback = data.feedback === 'positive' ? null : 'positive';
               mutate({ instanceUxId, messageId: data._id, feedback });
@@ -61,10 +68,14 @@ export const Msg: React.FC<MsgProps> = ({ data, instanceUxId }) => {
             disabled={isPending}
             size="small"
           >
-            <ThumbUp fontSize="small" />
+            {data.feedback === 'positive' ? (
+              <ThumbUp fontSize="small" sx={{ fontSize: 18 }} />
+            ) : (
+              <ThumbUpAltOutlined fontSize="small" sx={{ fontSize: 18 }} />
+            )}
           </Button>
           <Button
-            variant={data.feedback === 'negative' ? 'contained' : 'outlined'}
+            variant={'outlined'}
             onClick={() => {
               const feedback = data.feedback === 'negative' ? null : 'negative';
               mutate({ instanceUxId, messageId: data._id, feedback });
@@ -72,10 +83,27 @@ export const Msg: React.FC<MsgProps> = ({ data, instanceUxId }) => {
             disabled={isPending}
             size="small"
           >
-            <ThumbDown fontSize="small" />
+            {data.feedback === 'negative' ? (
+              <ThumbDown fontSize="small" sx={{ fontSize: 18 }} />
+            ) : (
+              <ThumbDownAltOutlined fontSize="small" sx={{ fontSize: 18 }} />
+            )}
+          </Button>
+          <Button
+            className="msg-panel__copy"
+            variant={'outlined'}
+            onClick={() => {
+              navigator.clipboard.writeText(data.content);
+              toast.success('Copied to clipboard');
+            }}
+            size="small"
+          >
+            <ContentCopyOutlined fontSize="small" sx={{ marginRight: 0.5, fontSize: 16 }} />
+            Copy
           </Button>
         </div>
       )}
     </Div>
+    // </RevealFx>
   );
 };

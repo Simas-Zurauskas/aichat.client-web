@@ -54,6 +54,28 @@ const GlobalStyles = styled.div`
       }
     }
   }
+
+  .styled-scroll {
+    ::-webkit-scrollbar {
+      width: 4px !important;
+      height: 4px !important;
+      position: absolute !important;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0) !important;
+      position: absolute !important;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: ${({ theme }) => theme.colors.primary} !important;
+      position: absolute;
+    }
+    &--size-2 {
+      ::-webkit-scrollbar {
+        width: 2px;
+        height: 2px;
+      }
+    }
+  }
 `;
 
 interface Props {
@@ -142,6 +164,7 @@ const AuthManager: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     queryKey: [QKey.user],
     queryFn: authorise,
     enabled: !!token,
+    retry: false,
   });
 
   useLayoutEffect(() => {
@@ -167,7 +190,7 @@ const AuthManager: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [data, error, isLoading]);
 
   useLayoutEffect(() => {
-    const globalPaths = [/^\/terms-and-conditions$/, /^\/privacy-policy$/];
+    const globalPaths = [/^\/terms-of-service$/, /^\/privacy-policy$/];
     const signedInPaths = [/^\/$/, /^\/account$/, /^\/node\/[a-zA-Z0-9-]+$/];
 
     const isPathMatch = (pathArray: RegExp[], pathname: string) => pathArray.some((el) => el.test(pathname));

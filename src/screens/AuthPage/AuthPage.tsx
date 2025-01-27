@@ -235,14 +235,13 @@ const AuthPage = () => {
                             label={
                               <span>
                                 I have read and accept the{' '}
-                                <Link href={'/terms-and-conditions'} target="_blank" className="form__link">
-                                  Terms and Conditions
+                                <Link href={'/terms-of-service'} target="_blank" className="form__link">
+                                  Terms of service
                                 </Link>
                               </span>
                             }
                           />
                         </FormGroup>
-
                         <Box sx={{ mt: 2 }} />
                       </>
                     )}
@@ -271,11 +270,8 @@ const AuthPage = () => {
                 </div>
               )}
               <div className="form__bottom">
+                <Typography variant="body2">{new Date().getFullYear()} Simas Žurauskas. </Typography>
                 <Typography variant="body2">
-                  © {new Date().getFullYear()} Simas Žurauskas. All rights reserved.
-                </Typography>
-                <Typography variant="body2">
-                  Contact:{' '}
                   <a href="mailto:simaszurauskas@gmail.com" target="_blank">
                     simaszurauskas@gmail.com
                   </a>

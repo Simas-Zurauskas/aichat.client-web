@@ -1,145 +1,125 @@
 'use client';
 import { Container } from '@mui/material';
+import styled from '@emotion/styled';
+
+const Wrap = styled(Container)`
+  * {
+    color: ${({ theme }) => theme.colors.text};
+  }
+  a {
+    color: ${({ theme }) => theme.colors.blue};
+  }
+  margin-bottom: 4rem;
+`;
 
 const Page = () => {
   return (
-    <Container maxWidth="md">
-      <article>
-        <header>
-          <h1>Privacy Policy</h1>
-          <p>
-            <em>Effective Date: [Date]</em>
-          </p>
-        </header>
+    <Wrap maxWidth="md">
+      <h1>Privacy Policy for ProMax.AI</h1>
+      <p>
+        <strong>Last Updated:</strong> 27th January 2025
+      </p>
 
-        <section>
-          <h2>1. Introduction</h2>
-          <p>
-            We respect your privacy and are committed to complying with the EU General Data Protection Regulation (GDPR)
-            and the California Consumer Privacy Act (CCPA), where applicable.
-          </p>
-        </section>
+      <p>
+        Thank you for using <strong>ProMax.AI</strong> ("the App"). This Privacy Policy explains how we handle your
+        information when you use our services. By using the App, you agree to the terms outlined in this policy.
+      </p>
 
-        <section>
-          <h2>2. Data We Collect</h2>
-          <ul>
-            <li>
-              <strong>Account Information:</strong> We collect your email address and profile information through Google
-              OAuth for authentication.
-            </li>
-            <li>
-              <strong>User Content:</strong> We store and process any files (PDF, DOCX) you upload to create chat
-              contexts. These files are stored encrypted on AWS S3.
-            </li>
-            <li>
-              <strong>Usage Data:</strong> We may collect usage statistics (e.g., number of chat instances, vector
-              operations) to operate and improve the App.
-            </li>
-          </ul>
-        </section>
+      <h2>1. Information We Collect</h2>
+      <p>We collect and process the following information:</p>
+      <ul>
+        <li>
+          <strong>Google OAuth Data:</strong> When you sign in/up using Google OAuth, we collect your email address and
+          basic profile information provided by Google.
+        </li>
+        <li>
+          <strong>User-Uploaded Files:</strong> You may upload PDF and DOCX files to create custom chat instances. These
+          files are stored and encrypted on AWS S3.
+        </li>
+        <li>
+          <strong>Text Context:</strong> You may provide additional text context for uploaded files to improve the
+          functionality of the App.
+        </li>
+        <li>
+          <strong>Usage Data:</strong> We track the number of vector operations (vector ops) performed by your account.
+        </li>
+      </ul>
+      <p>We do not collect any other personal data.</p>
 
-        <section>
-          <h2>3. How We Use Your Data</h2>
-          <ul>
-            <li>
-              <strong>Service Provision:</strong> To authenticate you, store your files, and enable your chat instances.
-            </li>
-            <li>
-              <strong>Service Improvement:</strong> To analyze usage trends to improve and maintain the App.
-            </li>
-            <li>
-              <strong>Legal Compliance:</strong> To comply with any court order, law, or legal process, and to respond
-              to lawful requests by public authorities.
-            </li>
-          </ul>
-        </section>
+      <h2>2. How We Use Your Information</h2>
+      <p>Your information is used solely for the following purposes:</p>
+      <ul>
+        <li>To provide and maintain the App's functionality.</li>
+        <li>To process and store your uploaded files and associated text context.</li>
+        <li>To generate vector embeddings for chat instances.</li>
+        <li>To enforce usage limits (e.g., vector ops and instance limits).</li>
+        <li>To delete your data upon account deletion or instance expiration.</li>
+      </ul>
 
-        <section>
-          <h2>4. Data Sharing</h2>
-          <p>
-            We do not sell your personal data to third parties. We may share data with service providers (e.g., AWS)
-            strictly for the purpose of hosting and encrypting your files. We may disclose your data if required by law
-            or to enforce our T&amp;C.
-          </p>
-        </section>
+      <h2>3. Data Storage and Security</h2>
+      <ul>
+        <li>
+          <strong>File Storage:</strong> Uploaded files are stored and encrypted on AWS S3.
+        </li>
+        <li>
+          <strong>Data Retention:</strong> Chat instances and associated files are automatically deleted after 1 month
+          of creation unless extended by the user. Extensions add 30 days from the extension date.
+        </li>
+        <li>
+          <strong>Account Deletion:</strong> You may delete your account at any time, which will permanently remove all
+          associated data, including files, embeddings, and chat instances.
+        </li>
+      </ul>
 
-        <section>
-          <h2>5. Data Retention and Deletion</h2>
-          <ul>
-            <li>
-              <strong>Files and Chat Instances:</strong> Automatically deleted 1 month after chat instance creation, or
-              earlier if you choose to delete them.
-            </li>
-            <li>
-              <strong>Account Data:</strong> Retained until you delete your account, after which all associated data
-              (including files and embeddings) will be permanently deleted.
-            </li>
-            <li>
-              <strong>Retention Exceptions:</strong> We may retain minimal data to comply with legal obligations, but
-              only if strictly necessary and in accordance with GDPR/CCPA.
-            </li>
-          </ul>
-        </section>
+      <h2>4. Your Responsibilities</h2>
+      <ul>
+        <li>You are solely responsible for the content you upload and the text context you provide.</li>
+        <li>You agree not to upload sensitive, illegal, or harmful content.</li>
+        <li>
+          You acknowledge that the App is not responsible for the accuracy, legality, or consequences of your use of the
+          App.
+        </li>
+      </ul>
 
-        <section>
-          <h2>6. Your Rights (GDPR/CCPA)</h2>
-          <ul>
-            <li>
-              <strong>Access and Portability:</strong> You can request a copy of your personal data.
-            </li>
-            <li>
-              <strong>Rectification and Erasure:</strong> You can request correction or deletion of your personal data
-              at any time by contacting us or by deleting your account.
-            </li>
-            <li>
-              <strong>Opt-out:</strong> You can opt out of certain uses of your data where applicable under GDPR/CCPA.
-            </li>
-          </ul>
-        </section>
+      <h2>5. Limitations of Liability</h2>
+      <ul>
+        <li>
+          The App is provided "as is," and we make no warranties regarding its functionality, accuracy, or reliability.
+        </li>
+        <li>We are not responsible for any damages, losses, or legal issues arising from your use of the App.</li>
+        <li>You agree to indemnify and hold us harmless from any claims related to your use of the App.</li>
+      </ul>
 
-        <section>
-          <h2>7. Data Security</h2>
-          <p>
-            We use encryption and secure storage solutions (e.g., AWS S3) to protect your data. However, no method of
-            transmission or storage is completely secure, and we cannot guarantee absolute security.
-          </p>
-        </section>
+      <h2>6. Third-Party Services</h2>
+      <p>
+        The App uses <strong>Google OAuth</strong> for authentication and <strong>AWS S3</strong> for file storage.
+        These third-party services have their own privacy policies, and we are not responsible for their practices.
+      </p>
 
-        <section>
-          <h2>8. Children’s Privacy</h2>
-          <p>
-            This App is not directed to individuals under the age of [13/16 depending on your jurisdiction]. We do not
-            knowingly collect personal data from children.
-          </p>
-        </section>
+      <h2>7. Compliance with Laws</h2>
+      <ul>
+        <li>
+          The App complies with the <strong>General Data Protection Regulation (GDPR)</strong> and other applicable
+          privacy laws.
+        </li>
+        <li>
+          If you are located outside the European Union, you consent to the transfer and processing of your data in
+          accordance with this policy.
+        </li>
+      </ul>
 
-        <section>
-          <h2>9. International Transfers</h2>
-          <p>
-            If you access our App from outside [Your Country], your data may be transferred to and processed in [Your
-            Country]. We take steps to ensure data protection remains consistent with GDPR/CCPA.
-          </p>
-        </section>
+      <h2>8. Changes to This Policy</h2>
+      <p>
+        We may update this Privacy Policy from time to time. Any changes will be posted on this page, and your continued
+        use of the App constitutes acceptance of the updated policy.
+      </p>
 
-        <section>
-          <h2>10. Changes to This Policy</h2>
-          <p>
-            We may update this Privacy Policy from time to time. If we make significant changes, we will notify you.
-            Continued use of the App after changes are posted constitutes acceptance of the revised Policy.
-          </p>
-        </section>
-
-        <section>
-          <h2>11. Contact Us</h2>
-          <p>
-            For any questions or requests regarding this Privacy Policy or your personal data, please contact us at:
-          </p>
-          <address>
-            Email: <a href="mailto:simaszurauskas@gmail.com">simaszurauskas@gmail.com</a>
-          </address>
-        </section>
-      </article>
-    </Container>
+      <h2>9. Contact Information</h2>
+      <p>
+        If you have any questions about this Privacy Policy, please contact us at:{' '}
+        <a href="mailto:simaszurauskas@gmail.com">simaszurauskas@gmail.com</a>.
+      </p>
+    </Wrap>
   );
 };
 

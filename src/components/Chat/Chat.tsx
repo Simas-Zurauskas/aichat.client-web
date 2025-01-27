@@ -8,38 +8,41 @@ import { Message } from '@/api/types';
 import { toast } from 'react-toastify';
 import { Button, Input } from '../form';
 import { useStateSelector } from '@/state';
+import { Box } from '@mui/material';
 
 const Div = styled.div<{ isEmpty: boolean }>`
   height: 100%;
   display: flex;
   flex-direction: column;
   flex: 1;
-  max-width: 745px;
 
   justify-content: ${({ isEmpty }) => (isEmpty ? 'center' : 'unset')};
-
-  .empty {
-    border: 1px solid red;
-  }
 
   .messages {
     flex: 1;
     overflow-y: auto;
     padding: 1rem;
-    display: grid;
-    grid-gap: 0.5rem;
-    grid-auto-rows: min-content;
+
+    &__container {
+      max-width: 745px;
+      margin: 0 auto;
+      display: grid;
+      grid-gap: 22px;
+      grid-auto-rows: min-content;
+    }
   }
 
   .input {
     flex-shrink: 0;
     width: 100%;
-    padding: 1px 16px 16px 16px;
+    padding-bottom: 1rem;
     display: flex;
+    max-width: 745px;
+    margin: 0 auto;
+
     &__wrap {
       background-color: ${({ theme }) => theme.colors.card};
       border-radius: 8px;
-      overflow: hidden;
       flex: 1;
     }
 
@@ -122,13 +125,10 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
 
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault(); // Prevent default behavior (e.g., form submission)
+      e.preventDefault();
       sendMessage();
     }
-    // If Shift + Enter is pressed, the default behavior (new line) will occur
   };
-
-  // sendChatMessage
 
   const sendMessage = () => {
     const trimmedText = text.trim();
@@ -160,13 +160,16 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
   const isEmpty = !messages.length;
 
   return (
-    <Div isEmpty={isEmpty}>
+    <Div isEmpty={isEmpty} className="styled-scroll">
       {!isEmpty && (
-        <div className="messages" ref={messagesRef} onScroll={handleScroll}>
-          {messages.map((msg) => (
-            <Msg key={msg._id} data={msg} instanceUxId={id} />
-          ))}
-          {isPending && <Thinking />}
+        <div className="messages styled-scroll" ref={messagesRef} onScroll={handleScroll}>
+          <div className="messages__container">
+            {messages.map((msg) => (
+              <Msg key={msg._id} data={msg} instanceUxId={id} />
+            ))}
+            {isPending && <Thinking />}
+            <Box mb={2} />
+          </div>
         </div>
       )}
 
@@ -183,6 +186,7 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
             fullWidth
             multiline
             maxRows={3}
+            autoFocus
           />
         </div>
         <SendBtn variant="outlined" onClick={() => sendMessage()} disabled={isDisabled}>

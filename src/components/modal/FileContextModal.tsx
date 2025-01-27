@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 import { LLM } from '@/api/types';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createInstance, updateInstance } from '@/api/routes/instances';
+import { createInstance, updateFile, updateInstance } from '@/api/routes/instances';
 import { toast } from 'react-toastify';
 import { QKey } from '@/types';
 import { FileWithPath } from 'react-dropzone';
@@ -27,38 +27,45 @@ const validationSchema = Yup.object().shape({
   userSettings: Yup.string().max(2000, 'User settings must be less than 2000 characters'),
 });
 
-interface CiModalProps {
+interface FileContextModalProps {
   open: boolean;
   onClose: () => void;
   initialValue: string;
-  id: string;
+  instanceId: string;
+  fileId: string;
 }
 
-export const CiModal: React.FC<CiModalProps> = ({ open, onClose, initialValue, id }) => {
+export const FileContextModal: React.FC<FileContextModalProps> = ({
+  open,
+  onClose,
+  initialValue,
+  instanceId,
+  fileId,
+}) => {
   const queryClient = useQueryClient();
 
   const { mutate, isPending } = useMutation({
-    mutationFn: updateInstance,
-    onSuccess: async () => {
-      await queryClient.invalidateQueries({
-        queryKey: [QKey.instance, id],
+    mutationFn: updateFile,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QKey.instance, instanceId],
       });
-      toast.success('Updated');
+      toast.success('File context updated');
       onClose();
     },
     onError: () => {
-      toast.error('Something went wrong');
+      toast.error('Failed to update file context');
     },
   });
 
   const { values, handleChange, handleBlur, errors, touched, resetForm, isValid, handleSubmit } = useFormik({
     validationSchema,
     initialValues: {
-      userSettings: initialValue,
+      context: initialValue,
     },
     enableReinitialize: true,
     onSubmit: (values) => {
-      return mutate({ ...values, uxId: id });
+      return mutate({ ...values, instanceId, fileId });
     },
   });
 
@@ -69,21 +76,21 @@ export const CiModal: React.FC<CiModalProps> = ({ open, onClose, initialValue, i
   }, [open]);
 
   return (
-    <ModalBase open={open} onClose={onClose} title="Custom instructions">
+    <ModalBase open={open} onClose={onClose} title="File context">
       <Div>
         <Input
-          name="userSettings"
+          name="context"
           onChange={handleChange}
           onBlur={handleBlur}
           variant="outlined"
-          label="Custom instructions"
+          label="File context"
           size="small"
-          value={values.userSettings}
-          placeholder='e.g. "The response you give is in Spanish."'
+          value={values.context}
+          placeholder='e.g. "This file contains the results of the experiment"'
           multiline
           minRows={3}
-          error={!!errors.userSettings && touched.userSettings}
-          helperText={touched.userSettings && errors.userSettings}
+          error={!!errors.context && touched.context}
+          helperText={touched.context && errors.context}
           fullWidth
         />
 

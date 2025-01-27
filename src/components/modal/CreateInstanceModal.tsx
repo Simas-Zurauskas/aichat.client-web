@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { ModalBase } from './comps/ModalBase';
 import { Box } from '@mui/material';
-import { Button, FileInput, Input, LlmSelect } from '../form';
+import { Button, FileInput, Input, LlmSelect, ResponseStyleSelect } from '../form';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { LLM } from '@/api/types';
+import { LLM, ResponseStyle } from '@/api/types';
 import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { createInstance } from '@/api/routes/instances';
@@ -61,6 +61,7 @@ export const CreateInstanceModal: React.FC<CreateInstanceModalProps> = ({ open, 
         llm: '' as LLM,
         userSettings: '',
         context: '',
+        temperature: ResponseStyle.Balanced,
       },
       onSubmit: (values) => {
         return mutate({ ...values, files });
@@ -75,6 +76,8 @@ export const CreateInstanceModal: React.FC<CreateInstanceModalProps> = ({ open, 
   }, [open]);
 
   const tooLargeError = isOverUploadSize(files.reduce((acc, el) => acc + el.size, 0)) ? '' : 'Total size exceeds 20MB';
+
+  console.log(values);
 
   return (
     <ModalBase open={open} onClose={onClose} title="Create Node">
@@ -99,7 +102,7 @@ export const CreateInstanceModal: React.FC<CreateInstanceModalProps> = ({ open, 
           onChange={handleChange}
           onBlur={handleBlur}
           variant="outlined"
-          label="Custom instructions (optional)"
+          label="Custom instructions"
           size="small"
           value={values.userSettings}
           placeholder='e.g. "The response you give is in Spanish."'
@@ -110,7 +113,13 @@ export const CreateInstanceModal: React.FC<CreateInstanceModalProps> = ({ open, 
           fullWidth
         />
         <Box mb={2} />
-        <LlmSelect value={values.llm} onChange={(val) => setFieldValue('llm', val)} />
+        <LlmSelect value={values.llm} onChange={(val) => setFieldValue('llm', val)} required />
+        <Box mb={2} />
+        <ResponseStyleSelect
+          value={values.temperature}
+          onChange={(val) => setFieldValue('temperature', val)}
+          required
+        />
         <Box mb={2} />
         <FileInput files={files} setFiles={setFiles} tooLargeError={tooLargeError} />
         <Box mb={2} />
@@ -118,10 +127,10 @@ export const CreateInstanceModal: React.FC<CreateInstanceModalProps> = ({ open, 
           name="context"
           onChange={handleChange}
           variant="outlined"
-          label="File context (optional)"
+          label="File context"
           size="small"
           value={values.context}
-          placeholder='e.g. "Draft for presentation"'
+          placeholder='e.g. "These files contains the results of the experiment"'
           fullWidth
         />
         <Box mb={3} />

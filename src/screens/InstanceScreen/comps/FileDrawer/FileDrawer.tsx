@@ -6,7 +6,7 @@ import styled from '@emotion/styled';
 
 const Wrap = styled(Drawer)`
   .MuiPaper-root {
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.appBgFront};
   }
 
   .fd-content {

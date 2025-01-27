@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { MsgWrap } from './styled';
 
 const Wrap = styled(MsgWrap)`
-  opacity: 0.5;
+  opacity: 0.8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,7 +11,7 @@ const Wrap = styled(MsgWrap)`
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background-color: ${({ theme }) => theme.colors.text};
+    background-color: ${({ theme }) => theme.colors.blue};
     margin: 0 3px;
     animation: bounce 1s infinite;
     margin-top: 8px;

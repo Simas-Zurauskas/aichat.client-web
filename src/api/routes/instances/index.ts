@@ -1,11 +1,11 @@
 import { AxiosProgressEvent } from 'axios';
 import { client } from '../../client';
-import { ApiResponse, Instance, LLM, Message } from '../../types';
+import { ApiResponse, Instance, LLM, Message, ResponseStyle } from '../../types';
 export * from './file';
 export * from './chat';
 
 type CreateInstance = (
-  params: { files: File[]; name: string; context: string; userSettings: string; llm: LLM },
+  params: { files: File[]; name: string; context: string; userSettings: string; llm: LLM; temperature: ResponseStyle },
   b?: (a: AxiosProgressEvent) => void,
 ) => Promise<ApiResponse<Instance>>;
 
@@ -20,6 +20,7 @@ export const createInstance: CreateInstance = (params, onUploadProgress) => {
   formData.append('context', params.context);
   formData.append('userSettings', params.userSettings);
   formData.append('llm', params.llm);
+  formData.append('temperature', params.temperature.toString());
 
   return client({
     url: `/instances`,
@@ -87,6 +88,17 @@ type SetLLM = (params: { instanceUxId: string; llm: LLM }) => Promise<ApiRespons
 export const setLLM: SetLLM = ({ instanceUxId, ...data }) => {
   return client({
     url: `/instances/${instanceUxId}/llm`,
+    method: 'PUT',
+    data,
+  }).then((res) => res.data.data);
+};
+// ----------------------------------------------------------------------------------------
+
+type SetTemperature = (params: { instanceUxId: string; temperature: ResponseStyle }) => Promise<ApiResponse<Message[]>>;
+
+export const setTemperature: SetTemperature = ({ instanceUxId, ...data }) => {
+  return client({
+    url: `/instances/${instanceUxId}/temperature`,
     method: 'PUT',
     data,
   }).then((res) => res.data.data);

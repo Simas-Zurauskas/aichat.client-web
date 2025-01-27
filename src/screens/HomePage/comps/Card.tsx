@@ -1,5 +1,5 @@
 import { delInstance } from '@/api/routes/instances';
-import { Instance, llmNaming } from '@/api/types';
+import { Instance, llmNaming, responseStyleNaming } from '@/api/types';
 import Dialog from '@/components/Dialog';
 import { formatDate, numeralFormat } from '@/lib/misc';
 import { useStateSelector } from '@/state';
@@ -70,7 +70,7 @@ const Div = styled(ButtonBase)<{ isDeleting: boolean }>`
 
   .ccontent {
     background: ${({ theme }) => theme.colors.card};
-    height: 190px;
+    height: 216px;
     width: 100%;
     padding: 20px 16px;
     display: flex;
@@ -180,6 +180,10 @@ export const Card: React.FC<CardProps> = ({ data }) => {
           <div className="ccontent__item">
             <Typography noWrap>Model:</Typography>
             <Typography noWrap>{llmNaming[data.llm]}</Typography>
+          </div>
+          <div className="ccontent__item">
+            <Typography noWrap>Response style:</Typography>
+            <Typography noWrap>{responseStyleNaming[data.temperature]}</Typography>
           </div>
           <div className="ccontent__item">
             <Typography noWrap>Mesages:</Typography>

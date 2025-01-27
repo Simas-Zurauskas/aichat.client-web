@@ -8,7 +8,7 @@ const StyledDialog = styled(MuiDialog)`
   .MuiPaper-root {
     width: 400px;
     padding: 20px !important;
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.appBgFront};
     .btns {
       display: flex;
       justify-content: flex-end;

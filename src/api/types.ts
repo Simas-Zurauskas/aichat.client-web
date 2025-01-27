@@ -25,6 +25,22 @@ export enum LLM {
   V3 = 'deepSeekV3',
 }
 
+export enum ResponseStyle {
+  SuperFocused = 0,
+  Precise = 0.25,
+  Balanced = 0.5,
+  Creative = 0.75,
+  HighlyCreative = 1,
+}
+
+export const responseStyleNaming = {
+  [ResponseStyle.SuperFocused]: 'Super Focused',
+  [ResponseStyle.Precise]: 'Precise',
+  [ResponseStyle.Balanced]: 'Balanced',
+  [ResponseStyle.Creative]: 'Creative',
+  [ResponseStyle.HighlyCreative]: 'Highly Creative',
+};
+
 export const llmNaming = {
   [LLM.GPT4O]: 'OpenAI GPT-4o',
   [LLM.GEMINI15PRO]: 'Google Gemini-1.5-Pro',
@@ -53,6 +69,7 @@ export interface Instance {
   chat: Message[];
   llm: LLM;
   deleteAt: string;
+  temperature: ResponseStyle;
 }
 
 export interface FileMeta {

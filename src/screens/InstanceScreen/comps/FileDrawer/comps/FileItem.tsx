@@ -13,7 +13,7 @@ import { QKey } from '@/types';
 import { useParams } from 'next/navigation';
 import { delFile, requestFileUrl } from '@/api/routes/instances';
 import FileModal from '@/components/FileModal';
-import ContextModal from '@/components/ContextModal';
+import { FileContextModal } from '@/components/modal';
 
 const Div = styled.div<{ isDeleting?: boolean }>`
   /* display: flex; */
@@ -123,12 +123,12 @@ export const FileItem: React.FC<FileItemProps> = ({ file }) => {
 
   return (
     <>
-      <ContextModal
+      <FileContextModal
         instanceId={id}
         fileId={file._id}
-        isOpen={isEditDialogOpen}
+        initialValue={file.context}
         onClose={() => setIsEditDialogOpen(false)}
-        value={file.context}
+        open={isEditDialogOpen}
       />
       <FileModal fileRef={filreRef} onClose={() => setFileRef(null)} />
       <Dialog
