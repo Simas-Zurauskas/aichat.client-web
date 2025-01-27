@@ -27,11 +27,21 @@ export const metadata: Metadata = {
   title: 'ProMax.AI',
   description: 'description',
   openGraph: {
-    type: 'website',
-    url: SITE_URL,
     title: 'ProMax.AI',
+    url: SITE_URL,
+    type: 'website',
     description: 'Your Personal AI Workspace for Smarter Conversations',
     siteName: 'ProMax.AI',
+    images: [
+      {
+        url: `${SITE_URL}/ogimg.png`,
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ProMax.AI',
+    description: 'Your Personal AI Workspace for Smarter Conversations',
     images: [
       {
         url: `${SITE_URL}/ogimg.png`,
