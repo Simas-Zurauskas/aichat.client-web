@@ -1,6 +1,6 @@
 import { useStateSelector } from '@/state';
 import styled from '@emotion/styled';
-import { Typography } from '@mui/material';
+import { Typography, useMediaQuery } from '@mui/material';
 
 const Div = styled.div`
   display: flex;
@@ -10,10 +10,12 @@ const Div = styled.div`
 
 interface LogoProps {
   colorOverride?: string;
+  hideTextOnMobile?: boolean;
 }
 
-export const Logo: React.FC<LogoProps> = ({ colorOverride }) => {
+export const Logo: React.FC<LogoProps> = ({ colorOverride, hideTextOnMobile }) => {
   const colors = useStateSelector(({ theme }) => theme.colors);
+  const isSm = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   return (
     <Div>
@@ -23,9 +25,11 @@ export const Logo: React.FC<LogoProps> = ({ colorOverride }) => {
           fill={colorOverride || colors.text}
         />
       </svg>
-      <Typography variant="h6" fontWeight={600} style={{ color: colorOverride || colors.text }}>
-        ProMax.AI
-      </Typography>
+      {isSm && hideTextOnMobile ? null : (
+        <Typography variant="h6" fontWeight={600} style={{ color: colorOverride || colors.text }}>
+          ProMax.AI
+        </Typography>
+      )}
     </Div>
   );
 };

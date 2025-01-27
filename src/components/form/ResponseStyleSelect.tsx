@@ -40,12 +40,6 @@ interface ResponseStyleSelectProps {
   required?: boolean;
 }
 
-// "Super Focused" (0) - Generates the most precise and strict responses.
-// "Precise" (0.25) - Offers focused but slightly flexible answers.
-// "Balanced" (0.5) - Combines accuracy and creativity equally.
-// "Creative" (0.75) - Provides more diverse and imaginative responses.
-// "Highly Creative" (1) - Generates the most varied and exploratory answers.
-
 export const ResponseStyleSelect: React.FC<ResponseStyleSelectProps> = ({
   value,
   onChange,

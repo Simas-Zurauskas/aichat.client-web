@@ -1,13 +1,14 @@
 import { useStateSelector } from '@/state';
 import styled from '@emotion/styled';
 import { Box, Typography } from '@mui/material';
+import { Slider } from './comps';
 
 const Div = styled.div`
-  border: 1px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  flex: 1;
 `;
 
 interface VisualProps {}
@@ -31,6 +32,8 @@ export const Visual: React.FC<VisualProps> = () => {
       <Typography variant="h6" fontWeight={400} style={{ color: colors.textWhite }}>
         Your Personal AI Workspace for Smarter Conversations
       </Typography>
+      <Box mb={8} />
+      <Slider />
     </Div>
   );
 };

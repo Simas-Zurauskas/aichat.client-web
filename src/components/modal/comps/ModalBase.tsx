@@ -16,6 +16,15 @@ const Wrap = styled(Dialog)`
       margin-bottom: 24px;
     }
   }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    .MuiPaper-root {
+      padding: 20px !important;
+      min-width: 320px;
+      width: 100%;
+      border-radius: 16px;
+    }
+  }
 `;
 
 interface ModalBaseProps {

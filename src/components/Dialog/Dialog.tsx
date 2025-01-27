@@ -15,6 +15,13 @@ const StyledDialog = styled(MuiDialog)`
       grid-gap: 8px;
     }
   }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    .MuiPaper-root {
+      padding: 16px !important;
+      max-width: calc(100% - 24px);
+    }
+  }
 `;
 
 interface DialogProps {

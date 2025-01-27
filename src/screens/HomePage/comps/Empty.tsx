@@ -8,6 +8,7 @@ const Div = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  padding: 0 10px;
 
   button {
     color: ${({ theme }) => theme.colors.blue};
@@ -18,6 +19,14 @@ const Div = styled.div`
     background-color: #e5f1ff;
     &:hover {
       background-color: #d6e8ff;
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    button {
+      width: 200px;
+      height: 100px;
+      font-size: 18px;
     }
   }
 `;
@@ -36,7 +45,7 @@ export const Empty: React.FC<EmptyProps> = ({ onClick }) => {
         />
       </svg>
       <Box mt={4} />
-      <Typography variant="h4" sx={{ fontWeight: 500 }}>
+      <Typography variant="h1" sx={{ fontWeight: 500 }} textAlign={'center'}>
         🚀 Launch Your First AI Workspace
       </Typography>
       <Box mt={2} />

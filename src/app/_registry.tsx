@@ -76,6 +76,33 @@ const GlobalStyles = styled.div`
       }
     }
   }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    h1 {
+      font-size: 1.7rem;
+    }
+    h2 {
+      font-size: 1.4rem;
+    }
+    h3 {
+      font-size: 1.2rem;
+    }
+    p {
+      font-size: 0.9rem;
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    h1 {
+      font-size: 1.5rem;
+    }
+    h2 {
+      font-size: 1.2rem;
+    }
+    h3 {
+      font-size: 1rem;
+    }
+  }
 `;
 
 interface Props {
@@ -208,6 +235,6 @@ const AuthManager: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   }, [isSignedIn, authStatus, pathname]);
 
   if (authStatus === 'uninitialized') return null;
-  if (authStatus === 'authorizing') return 'Authorizing...';
+  if (authStatus === 'authorizing') return null;
   return <>{children}</>;
 };

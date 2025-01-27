@@ -30,7 +30,7 @@ export enum ResponseStyle {
   Precise = 0.25,
   Balanced = 0.5,
   Creative = 0.75,
-  HighlyCreative = 1,
+  HighlyCreative = 0.9,
 }
 
 export const responseStyleNaming = {

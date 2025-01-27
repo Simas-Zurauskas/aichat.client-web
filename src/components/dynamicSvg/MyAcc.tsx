@@ -7,7 +7,14 @@ interface Props {
 export const MyAccSvg: React.FC<Props> = ({ colorOverride }) => {
   const colors = useStateSelector(({ theme }) => theme.colors);
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ width: 21 }}
+    >
       <path
         fillRule="evenodd"
         clipRule="evenodd"

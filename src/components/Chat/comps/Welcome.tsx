@@ -23,7 +23,7 @@ export const Welcome: React.FC<WelcomeProps> = () => {
         />
       </svg>
       <Box mt={4} />
-      <Typography variant="h4" sx={{ fontWeight: 500 }}>
+      <Typography variant="h1" sx={{ fontWeight: 500 }} textAlign={'center'}>
         Chat Powered by Your Documents
       </Typography>
       <Box mt={2} />

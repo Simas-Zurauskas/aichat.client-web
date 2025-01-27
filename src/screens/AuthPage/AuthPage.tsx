@@ -15,15 +15,22 @@ import { Visual } from './comps';
 
 const Main = styled.main`
   min-height: 100vh;
-  display: grid;
-
+  display: flex;
   background: linear-gradient(180deg, #2b4a76 0%, #1f2937 100%);
+  overflow: hidden;
+  max-width: 100%;
+  height: 100%;
+  flex: 1;
+  max-width: 100vw;
+  overflow: hidden;
 
   .MuiContainer-root {
     display: grid;
-    grid-template-columns: 1fr 1.3fr;
+    grid-template-columns: 1fr 1.8fr;
     margin-top: 44px;
-    grid-gap: 20px;
+    /* grid-gap: 20px; */
+    max-width: 100%;
+    flex: 1;
   }
 
   .form {
@@ -100,7 +107,10 @@ const Main = styled.main`
   }
 
   .visual {
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    overflow: hidden;
   }
 
   .unsupported {
@@ -163,7 +173,7 @@ const AuthPage = () => {
 
   return (
     <Main>
-      <Container style={{ maxWidth: 1920, padding: '0 90px' }}>
+      <Container style={{ maxWidth: 1920, padding: '0 0 0 90px' }}>
         <div className="form">
           {!isLoading ? (
             <>

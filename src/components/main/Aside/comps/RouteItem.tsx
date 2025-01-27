@@ -34,7 +34,18 @@ const Div = styled.div<{ isActive: boolean }>`
     isActive &&
     css`
       background-color: ${theme.colors.asideActive};
-    `}
+    `};
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    padding: 8px;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    .label {
+      display: none;
+    }
+    justify-content: center;
+  }
 `;
 
 interface RouteItemProps {

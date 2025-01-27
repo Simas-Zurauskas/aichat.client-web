@@ -14,6 +14,11 @@ const Div = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   grid-gap: 16px;
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    grid-gap: 12px;
+  }
 `;
 
 const HomePage = () => {

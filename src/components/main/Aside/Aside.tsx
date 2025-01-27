@@ -21,6 +21,20 @@ const Div = styled.div`
   .dis {
     margin-top: auto;
   }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    padding: 12px;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    padding: 12px 6px;
+    .dm-label {
+      display: none;
+    }
+    .logo-wrap {
+      margin-left: 2px;
+    }
+  }
 `;
 
 interface AsideProps {}
@@ -31,19 +45,26 @@ const Aside: React.FC<AsideProps> = () => {
 
   return (
     <Div>
-      <Logo colorOverride={colors.textWhite} />
+      <div className="logo-wrap">
+        <Logo colorOverride={colors.textWhite} hideTextOnMobile />
+      </div>
       <Box mb={4} />
       <RouteItem icon={<LogoSvg />} title="Nodes" path="/" pathRegex={[/^\/$/, /^\/node\/[a-zA-Z0-9-]+$/]} />
+      <Box mb={0.2} />
       <RouteItem icon={<MyAccSvg />} title="My Account" path="/account" pathRegex={[/^\/account$/]} />
 
       <div className="dis"></div>
 
-      <FormGroup>
+      <FormGroup style={{ padding: 12 }}>
         <FormControlLabel
           control={
             <Switch checked={scheme === 'dark'} onChange={() => setScheme(scheme === 'dark' ? 'light' : 'dark')} />
           }
-          label={<Typography sx={{ color: colors.textWhite, ml: 2 }}>Dark mode</Typography>}
+          label={
+            <Typography sx={{ color: colors.textWhite, ml: 2 }} className="dm-label">
+              Dark mode
+            </Typography>
+          }
         />
       </FormGroup>
     </Div>

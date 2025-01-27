@@ -21,7 +21,7 @@ const Div = styled.div<{ isEmpty: boolean }>`
   .messages {
     flex: 1;
     overflow-y: auto;
-    padding: 1rem;
+    padding: 16px 20px;
 
     &__container {
       max-width: 745px;
@@ -33,6 +33,7 @@ const Div = styled.div<{ isEmpty: boolean }>`
   }
 
   .input {
+    padding: 0 20px;
     flex-shrink: 0;
     width: 100%;
     padding-bottom: 1rem;
@@ -66,6 +67,32 @@ const Div = styled.div<{ isEmpty: boolean }>`
     input {
       padding-top: 13px;
       padding-bottom: 13px;
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    .messages {
+      padding: 10px 16px;
+      flex: 1;
+      overflow-y: auto;
+      padding: 0%.8 0;
+
+      &__container {
+        grid-gap: 14px;
+      }
+    }
+
+    .input {
+      padding: 0 16px;
+      padding-bottom: 0.8rem;
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    .messages {
+      &__container {
+        grid-gap: 10px;
+      }
     }
   }
 `;
@@ -178,7 +205,7 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
       <div className="input">
         <div className="input__wrap">
           <Input
-            placeholder="“Generate a TL;DR” or “Break down the workflow”…"
+            placeholder="Message ProMax.AI"
             disabled={isPending}
             value={text}
             onChange={(e) => setText(e.target.value)}

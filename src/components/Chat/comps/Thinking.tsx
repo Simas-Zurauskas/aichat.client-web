@@ -39,6 +39,11 @@ const Wrap = styled(MsgWrap)`
       transform: translateY(-6px);
     }
   }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    padding: 8px 14px;
+    min-height: unset;
+  }
 `;
 
 interface ThinkingProps {}

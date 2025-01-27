@@ -17,6 +17,14 @@ const Div = styled.div`
     overflow-y: auto;
     color-scheme: light dark;
   }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    grid-template-columns: 200px 1fr;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    grid-template-columns: 52px 1fr;
+  }
 `;
 
 interface LayoutProps {

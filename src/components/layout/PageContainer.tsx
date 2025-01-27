@@ -19,7 +19,6 @@ export const Wrap = styled.div`
     grid-template-rows: 72px 1fr;
 
     .head {
-      height: 72px;
       padding: 0 38px;
       display: flex;
       align-items: center;
@@ -27,10 +26,29 @@ export const Wrap = styled.div`
     }
     .content {
       padding: 24px 38px;
+      overflow: hidden;
       /* border: 1px solid red; */
       flex: 1;
       height: 100%;
     }
+  }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    padding: 12px;
+    main {
+      grid-template-rows: 52px 1fr;
+      .head {
+        height: 52px;
+        padding: 0 12px;
+      }
+      .content {
+        padding: 12px;
+      }
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    padding-left: 0px;
   }
 `;
 

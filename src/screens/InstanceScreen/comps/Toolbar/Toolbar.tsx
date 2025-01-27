@@ -19,6 +19,7 @@ const Div = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
+  max-height: calc(100vh - 120px);
 
   .statrow {
     display: flex;
@@ -29,6 +30,17 @@ const Div = styled.div`
     display: flex;
     grid-gap: 8px;
     align-items: center;
+  }
+
+  .instructions {
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    padding: 12px;
+    max-height: calc(100vh - 76px);
+    width: 250px;
   }
 `;
 
@@ -185,6 +197,12 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
             </div>
           </>
         )}
+        <Box mb={2} />
+        <div className="instructions styled-scroll">
+          <Typography variant="body2" style={{ opacity: 0.8 }}>
+            {data.userSettings}
+          </Typography>
+        </div>
 
         <Box mb={2} sx={{ marginTop: 'auto' }} />
         <Button variant="outlined" color="secondary" onClick={() => setIsExtendOpen(true)}>

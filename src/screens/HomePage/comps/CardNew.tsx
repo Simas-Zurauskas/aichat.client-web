@@ -8,6 +8,12 @@ const Div = styled(ButtonBase)`
   overflow: hidden;
   display: flex;
   background: #e5f1ff;
+  height: 100%;
+  min-height: 216px;
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    min-height: 200px;
+  }
 `;
 
 interface CardNewProps {
@@ -19,7 +25,7 @@ export const CardNew: React.FC<CardNewProps> = ({ onClick }) => {
 
   return (
     <Div onClick={onClick}>
-      <Typography color="primary" style={{ color: colors.blue, fontSize: 24 }}>
+      <Typography color="primary" variant="h2" style={{ color: colors.blue, fontWeight: 500 }}>
         + Create new
       </Typography>
     </Div>

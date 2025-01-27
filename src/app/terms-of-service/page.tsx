@@ -51,7 +51,7 @@ const Page = () => {
         <li>You are solely responsible for the content you upload, including files and text context.</li>
         <li>You will not upload sensitive, illegal, or harmful content.</li>
         <li>
-          You will not exceed the usage limits, including the maximum of 6 active instances and 50,000 vector operations
+          You will not exceed the usage limits, including the maximum of 6 active instances and 20,000 vector operations
           per month.
         </li>
         <li>You will comply with all applicable laws and regulations.</li>

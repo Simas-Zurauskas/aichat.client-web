@@ -99,7 +99,19 @@ const Div = styled(ButtonBase)<{ isDeleting: boolean }>`
       .chead__delete {
         display: none;
       }
-    `}
+    `};
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    .chead {
+      height: 34px;
+      padding: 0 10px 0 10px;
+    }
+    .ccontent {
+      background: ${({ theme }) => theme.colors.card};
+      height: 200px;
+      padding: 12px;
+    }
+  }
 `;
 
 interface CardProps {
