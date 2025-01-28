@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { Dialog, IconButton, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { useStateSelector } from '@/state';
 
 const Wrap = styled(Dialog)`
   .MuiPaper-root {
@@ -35,6 +36,7 @@ interface ModalBaseProps {
 }
 
 export const ModalBase: React.FC<ModalBaseProps> = ({ open, title, onClose, children }) => {
+  const scheme = useStateSelector(({ theme }) => theme.scheme);
   return (
     <Wrap open={open}>
       <div className="mhead">
@@ -42,7 +44,7 @@ export const ModalBase: React.FC<ModalBaseProps> = ({ open, title, onClose, chil
           {title}
         </Typography>
         <IconButton onClick={onClose}>
-          <CloseIcon />
+          <CloseIcon sx={{ color: scheme === 'light' ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.54)' }} />
         </IconButton>
       </div>
       {children}

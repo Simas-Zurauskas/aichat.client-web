@@ -55,7 +55,7 @@ const Aside: React.FC<AsideProps> = () => {
 
       <div className="dis"></div>
 
-      <FormGroup style={{ padding: 12 }}>
+      <FormGroup style={{ padding: '0 12px' }}>
         <FormControlLabel
           control={
             <Switch checked={scheme === 'dark'} onChange={() => setScheme(scheme === 'dark' ? 'light' : 'dark')} />

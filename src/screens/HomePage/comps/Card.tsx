@@ -60,7 +60,7 @@ const Div = styled(ButtonBase)<{ isDeleting: boolean }>`
           left: 1px;
           right: 1px;
           bottom: 5px;
-          background-color: white;
+          background-color: ${({ theme }) => theme.colors.textWhite};
           border-radius: 50%;
           z-index: -1;
         }
@@ -87,7 +87,7 @@ const Div = styled(ButtonBase)<{ isDeleting: boolean }>`
 
   &:hover {
     .ccontent {
-      background: #e5f1ff;
+      background: ${({ theme }) => theme.colors.shade};
     }
   }
 

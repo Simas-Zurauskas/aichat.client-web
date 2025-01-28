@@ -11,14 +11,15 @@ const Div = styled.div`
 interface LogoProps {
   colorOverride?: string;
   hideTextOnMobile?: boolean;
+  className?: string;
 }
 
-export const Logo: React.FC<LogoProps> = ({ colorOverride, hideTextOnMobile }) => {
+export const Logo: React.FC<LogoProps> = ({ colorOverride, hideTextOnMobile, className }) => {
   const colors = useStateSelector(({ theme }) => theme.colors);
   const isSm = useMediaQuery((theme) => theme.breakpoints.down('sm'));
 
   return (
-    <Div>
+    <Div className={className}>
       <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M6.75 11.4795V24.5205L18 31.0335L29.25 24.5205V11.4795L18 4.9665L6.75 11.4795ZM18 1.5L32.25 9.75V26.25L18 34.5L3.75 26.25V9.75L18 1.5ZM9.7485 14.955L16.5 18.8655V26.439H19.5V18.8655L26.2515 14.958L24.7485 12.3615L18 16.2675L11.2515 12.36L9.7485 14.955Z"

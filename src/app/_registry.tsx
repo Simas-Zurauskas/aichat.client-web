@@ -87,6 +87,9 @@ const GlobalStyles = styled.div`
     h3 {
       font-size: 1.2rem;
     }
+    h6 {
+      font-size: 1rem;
+    }
     p {
       font-size: 0.9rem;
     }
@@ -101,6 +104,9 @@ const GlobalStyles = styled.div`
     }
     h3 {
       font-size: 1rem;
+    }
+    h6 {
+      font-size: 0.9rem;
     }
   }
 `;

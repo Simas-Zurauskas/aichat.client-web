@@ -8,7 +8,6 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Toolbar } from './comps';
-import SettingsModal from '@/components/SettingsModal';
 import { Loading } from '@/components/Loading';
 import { motion } from 'framer-motion';
 import { useMediaQuery } from '@mui/material';
@@ -28,8 +27,8 @@ const Main = styled.div`
   }
 
   .toolbar {
-    background-color: #ecf1f6;
-    border-left: 1px solid #e0e0e0;
+    background-color: ${({ theme }) => (theme.scheme === 'light' ? '#ecf1f6' : '#1c252c')};
+    border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
     &__handle {
       position: absolute;
@@ -70,7 +69,6 @@ const Main = styled.div`
 const InstanceScreen = () => {
   const { id } = useParams<{ id: string }>();
   const [isProcessing, setIsProcessing] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isToolbarOpen, setIsToolbarOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -103,40 +101,31 @@ const InstanceScreen = () => {
   }, [data, id, isProcessing]);
 
   return (
-    <>
-      <SettingsModal
-        id={id}
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        value={data?.userSettings || ''}
-      />
-
-      <PageContainer title={data?.name || ''} contentStyle={{ padding: 0 }}>
-        <Main>
-          <div className="chat">{data ? <>{data && <Chat id={id} />}</> : <Loading />}</div>
-          <motion.div
-            className="toolbar"
-            initial={false}
-            animate={{ x: isMd ? (isToolbarOpen ? 0 : 250) : 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {isMd && (
-              <motion.div
-                initial={false}
-                animate={{
-                  x: isToolbarOpen ? 0 : -40,
-                }}
-                className="toolbar__handle"
-                onClick={() => setIsToolbarOpen(!isToolbarOpen)}
-              >
-                {isToolbarOpen ? <KeyboardDoubleArrowRight /> : <KeyboardDoubleArrowLeft />}
-              </motion.div>
-            )}
-            {data && <Toolbar data={data} />}
-          </motion.div>
-        </Main>
-      </PageContainer>
-    </>
+    <PageContainer title={data?.name || ''} contentStyle={{ padding: 0 }}>
+      <Main>
+        <div className="chat">{data ? <>{data && <Chat id={id} />}</> : <Loading />}</div>
+        <motion.div
+          className="toolbar"
+          initial={false}
+          animate={{ x: isMd ? (isToolbarOpen ? 0 : 250) : 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {isMd && (
+            <motion.div
+              initial={false}
+              animate={{
+                x: isToolbarOpen ? 0 : -40,
+              }}
+              className="toolbar__handle"
+              onClick={() => setIsToolbarOpen(!isToolbarOpen)}
+            >
+              {isToolbarOpen ? <KeyboardDoubleArrowRight /> : <KeyboardDoubleArrowLeft />}
+            </motion.div>
+          )}
+          {data && <Toolbar data={data} />}
+        </motion.div>
+      </Main>
+    </PageContainer>
   );
 };
 

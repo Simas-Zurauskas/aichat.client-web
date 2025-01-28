@@ -1,6 +1,6 @@
 import { useStateSelector } from '@/state';
 import styled from '@emotion/styled';
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useMediaQuery } from '@mui/material';
 import { Slider } from './comps';
 
 const Div = styled.div`
@@ -15,24 +15,17 @@ interface VisualProps {}
 
 export const Visual: React.FC<VisualProps> = () => {
   const colors = useStateSelector(({ theme }) => theme.colors);
+  const isMd = useMediaQuery((theme) => theme.breakpoints.down('md'));
   return (
     <Div>
-      {/* <Typography variant="h2" style={{ color: colors.textWhite }}>
-        Welcome to the ProMax.AI!
-      </Typography>
-      <Box mb={10} />
-      <Typography variant="body1" style={{ color: colors.textWhite }}>
-        more text
-      </Typography> */}
-
-      <Typography variant="h2" style={{ color: colors.textWhite }}>
-        Unlock the Power of AI with ProMax.AI
-      </Typography>
-      <Box mb={1} />
-      <Typography variant="h6" fontWeight={400} style={{ color: colors.textWhite }}>
-        Your Personal AI Workspace for Smarter Conversations
-      </Typography>
-      <Box mb={8} />
+      {!isMd && (
+        <>
+          <Typography variant="h2" style={{ color: colors.textWhite }}>
+            Unlock the Power of AI with ProMax.AI
+          </Typography>
+          <Box mb={isMd ? 4 : 8} />
+        </>
+      )}
       <Slider />
     </Div>
   );

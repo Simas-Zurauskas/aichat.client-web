@@ -123,7 +123,7 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
 
   const queryClient = useQueryClient();
 
-  const { data: messages = [] } = useQuery({
+  const { data: messages = [], isLoading } = useQuery({
     queryKey: [QKey.chat, id],
     queryFn: () => getChat(id),
   });
@@ -184,7 +184,7 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
   };
 
   const isDisabled = isPending || !text.trim();
-  const isEmpty = !messages.length;
+  const isEmpty = !messages.length && !isLoading;
 
   return (
     <Div isEmpty={isEmpty} className="styled-scroll">

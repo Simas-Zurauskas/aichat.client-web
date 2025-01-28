@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { SlideA } from './slides';
+import { SlideA, SlideB } from './slides';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 
@@ -12,7 +12,6 @@ const Div = styled.div`
     justify-content: center;
     flex: 1;
     max-width: 65% !important;
-    /* aspect-ratio: 1/1; */
   }
 
   [class^='number-slide'],
@@ -20,6 +19,17 @@ const Div = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  ${({ theme }) => theme.breakpoints.down('lg')} {
+    .content {
+      max-width: 80% !important;
+    }
+  }
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    .content {
+      max-width: 90% !important;
+    }
   }
 `;
 
@@ -32,12 +42,12 @@ export const Slider: React.FC<SliderProps> = () => {
     {
       loop: true,
       slideChanged: (slider) => {
-        setSlide(slider.track.details.abs);
+        console.log(slider.track);
+        setSlide(slider.track.details.rel);
       },
     },
     [
       (slider) => {
-        console.log(slider);
         let timeout: ReturnType<typeof setTimeout>;
         let mouseOver = false;
         function clearNextTimeout() {
@@ -68,22 +78,24 @@ export const Slider: React.FC<SliderProps> = () => {
     ],
   );
 
+  console.log('SLIDE', slide);
+
   return (
     <>
       <Div ref={sliderRef} className="keen-slider">
         <div className="keen-slider__slide number-slide1">
           <div className="content">
-            <SlideA />
+            <SlideA isActive={slide === 0} />
           </div>
         </div>
         <div className="keen-slider__slide number-slide2">
           <div className="content">
-            <SlideA />
+            <SlideB isActive={slide === 1} />
           </div>
         </div>
         <div className="keen-slider__slide number-slide3">
           <div className="content">
-            <SlideA />
+            <SlideB isActive={slide === 2} />
           </div>
         </div>
       </Div>

@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const MsgWrap = styled.div<{ $isAI: boolean }>`
-  border: 1px solid #c3ccd6;
+  border: 1px solid ${({ theme }) => (theme.scheme === 'light' ? '#c3ccd6' : 'rgb(61, 75, 84)')};
   padding: 10px 18px;
   border-radius: 8px;
   align-self: ${({ $isAI }) => ($isAI ? 'flex-start' : 'flex-end')};
@@ -11,7 +11,7 @@ export const MsgWrap = styled.div<{ $isAI: boolean }>`
     $isAI
       ? theme.scheme === 'light'
         ? '#ECF1F6'
-        : '#ECF1F6'
+        : '#1C252C'
       : theme.scheme === 'light'
       ? theme.colors.appBgFront
       : theme.colors.appBgFront};

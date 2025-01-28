@@ -13,15 +13,9 @@ export type ColorSet = {
   appBgFront: string;
   asideActive: string;
   card: string;
-
   secondary: string;
-  background: string;
-  cardBorder: string;
-  // waves
-  wave1: string;
-  wave2: string;
-  wave3: string;
-  wave4: string;
+  shade: string;
+  border: string;
 };
 
 export const colorLib = {
@@ -37,32 +31,23 @@ export const colorLib = {
   appBgFront: '#F9FAFB',
   asideActive: '#4e6688',
   card: '#F2F8FF',
-  // ===== OLD =====
-  // ===== OLD =====
-  // ===== OLD =====
-  white: '#FFFFFF', // #FFFFFF
-  whiteDark: '#E2E8F0', // #E2E8F0
-  black: '#1D222A', // #1D222A
-  chineseBlack: '#11181C', // #11181C
-  blueRadiance: '#3B82F6', // #3B82F6
-  blueRadianceDark: '#1E3A8A', // #1E3A8A
-  tropicalTeal: '#29AA7B', // #29AA7B
-  tropicalTealDark: '#157256', // #157256
-  cardDark: '#2D3748', // #2D3748
-  cardBorder: '#D1D1D1', // #D1D1D1
-  cardBorderDark: '#4A5568', // #4A5568
-  // ===== waves light =====
-  azureBlue: 'rgba(0, 119, 182, 0.7)',
-  lightSkyBlue: 'rgba(72, 202, 228, 0.5)',
-  blueEyes: 'rgba(144, 224, 239, 0.3)',
-  aliceBlue: 'rgba(223, 249, 251, 0.8)',
-  // ===== waves dark =====
-  azureBluedark: 'rgba(0, 47, 90, 0.7)',
-  lightSkyBlueDark: 'rgba(25, 82, 112, 0.5)',
-  blueEyesDark: 'rgba(40, 120, 150, 0.3)',
-  aliceBluedark: 'rgba(50, 140, 180, 0.8)',
+  shade: '#e5f1ff',
+  border: '#e0e0e0',
 
-  errorDark: '#FF0000',
+  textDark: '#b2c5e1', //#b2c5e1
+  primaryDark: '#3C6DBC',
+  textWhiteDark: 'rgb(220, 224, 228)',
+  blueDark: '#336cc1',
+  successDark: '#4CAF50',
+  sucessPaleDark: '#37593C',
+  errorDark: '#F44336',
+  errorPaleDark: '#593737',
+  appBgBackDark: '#111827',
+  appBgFrontDark: '#2E3646',
+  asideActiveDark: '#33485F',
+  cardDark: '#1E293B',
+  shadeDark: '#1a243a', //#1a243a
+  borderDark: '#455473', // #455473
 };
 
 export const colorsApp: { light: ColorSet; dark: ColorSet } = {
@@ -80,37 +65,25 @@ export const colorsApp: { light: ColorSet; dark: ColorSet } = {
     appBgFront: colorLib.appBgFront,
     asideActive: colorLib.asideActive,
     card: colorLib.card,
-
-    background: colorLib.white,
-    cardBorder: colorLib.cardBorder,
-
-    wave1: colorLib.azureBlue,
-    wave2: colorLib.lightSkyBlue,
-    wave3: colorLib.blueEyes,
-    wave4: colorLib.aliceBlue,
+    shade: colorLib.shade,
+    border: colorLib.border,
   },
   dark: {
-    text: colorLib.text,
-    textWhite: colorLib.textWhite,
-    primary: colorLib.primary,
-    secondary: colorLib.blue,
-    blue: colorLib.blue,
-    success: colorLib.success,
-    successPale: colorLib.sucessPale,
-    error: colorLib.error,
-    errorPale: colorLib.errorPale,
-    appBgBack: colorLib.appBgBack,
-    appBgFront: colorLib.appBgFront,
-    asideActive: colorLib.asideActive,
-    card: colorLib.card,
-
-    background: colorLib.black,
-    cardBorder: colorLib.cardBorderDark,
-
-    wave1: colorLib.azureBluedark,
-    wave2: colorLib.lightSkyBlueDark,
-    wave3: colorLib.blueEyesDark,
-    wave4: colorLib.aliceBluedark,
+    text: colorLib.textDark,
+    textWhite: colorLib.textWhiteDark,
+    primary: colorLib.primaryDark,
+    secondary: colorLib.blueDark,
+    blue: colorLib.blueDark,
+    success: colorLib.successDark,
+    successPale: colorLib.sucessPaleDark,
+    error: colorLib.errorDark,
+    errorPale: colorLib.errorPaleDark,
+    appBgBack: colorLib.appBgBackDark,
+    appBgFront: colorLib.appBgFrontDark,
+    asideActive: colorLib.asideActiveDark,
+    card: colorLib.cardDark,
+    shade: colorLib.shadeDark,
+    border: colorLib.borderDark,
   },
 };
 
@@ -140,7 +113,7 @@ export const slice = createSlice({
       state.scheme = scheme;
       state.colors = colorsApp[scheme];
 
-      document.body.style.backgroundColor = colorsApp[scheme].background;
+      document.body.style.backgroundColor = colorsApp[scheme].appBgFront;
     },
   },
 });

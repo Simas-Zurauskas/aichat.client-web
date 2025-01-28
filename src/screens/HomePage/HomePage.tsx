@@ -12,7 +12,7 @@ import { CardNew } from './comps/CardNew';
 
 const Div = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
   grid-gap: 16px;
 
   ${({ theme }) => theme.breakpoints.down('md')} {

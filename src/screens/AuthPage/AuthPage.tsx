@@ -1,6 +1,15 @@
 'use client';
 import styled from '@emotion/styled';
-import { Box, Checkbox, CircularProgress, Container, FormControlLabel, FormGroup, Typography } from '@mui/material';
+import {
+  Box,
+  Checkbox,
+  CircularProgress,
+  Container,
+  FormControlLabel,
+  FormGroup,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
 import { generateGoogleOAuthUrl, removeToken, setToken } from '@/api/utils';
 import { useEffect, useLayoutEffect, useState } from 'react';
@@ -28,14 +37,13 @@ const Main = styled.main`
     display: grid;
     grid-template-columns: 1fr 1.8fr;
     margin-top: 44px;
-    /* grid-gap: 20px; */
     max-width: 100%;
     flex: 1;
   }
 
   .form {
     position: relative;
-    background-color: #e9f3ff;
+    background-color: ${({ theme }) => theme.colors.appBgFront};
     border-top-left-radius: 24px;
     border-top-right-radius: 24px;
     display: flex;
@@ -55,6 +63,14 @@ const Main = styled.main`
 
     &__logo {
       margin-top: 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      grid-gap: 24px;
+      &__scaled {
+        transform: scale(1.5);
+      }
     }
 
     &__link {
@@ -78,6 +94,10 @@ const Main = styled.main`
       }
       .MuiCheckbox-root {
         padding: 4px;
+
+        .MuiSvgIcon-root {
+          fill: ${({ theme }) => theme.colors.secondary};
+        }
       }
     }
 
@@ -101,7 +121,7 @@ const Main = styled.main`
       width: 100%;
       * {
         user-select: text;
-        color: #496587b1 !important;
+        color: ${({ theme }) => (theme.scheme === 'light' ? '#4e6c8fd3' : '#809dbedf')} !important;
       }
     }
   }
@@ -117,6 +137,30 @@ const Main = styled.main`
     max-width: 400px;
     * {
       text-align: center;
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    .MuiContainer-root {
+      display: flex;
+      flex-direction: column-reverse;
+      margin-top: 0px;
+    }
+    .form {
+      padding-top: 30px;
+      padding-bottom: 60px;
+      &__logo {
+        &__scaled {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    .form {
+      &__logo {
+        margin-top: 40px;
+      }
     }
   }
 `;
@@ -138,6 +182,8 @@ const AuthPage = () => {
   const [agreement, setAgreement] = useState({ tscs: false, privacy: false });
   const { setUser } = useActionsAuth();
   const router = useRouter();
+  const isLg = useMediaQuery((theme) => theme.breakpoints.down('lg'));
+  const isMd = useMediaQuery((theme) => theme.breakpoints.down('md'));
 
   const handleSignIn = () => {
     window.location.href = generateGoogleOAuthUrl(isSignUp ? 'signup' : 'signin');
@@ -173,17 +219,22 @@ const AuthPage = () => {
 
   return (
     <Main>
-      <Container style={{ maxWidth: 1920, padding: '0 0 0 90px' }}>
+      <Container style={{ maxWidth: 1920, padding: `0 0 0 ${isMd ? 0 : isLg ? 20 : 80}px` }}>
         <div className="form">
           {!isLoading ? (
             <>
-              <div className="form__logo">
-                <Logo />
-              </div>
+              {!isMd && (
+                <div className="form__logo">
+                  <Logo className="form__logo__scaled" />
+                  <Typography textAlign={'center'}>Your Personal AI Workspace for Smarter Conversations</Typography>
+                </div>
+              )}
               {!isInAppBrowser() ? (
                 <div className="form__content">
-                  <Typography variant="h1">Sign {isSignUp ? 'Up' : 'In'}</Typography>
-                  <Box sx={{ mt: 2 }} />
+                  <Typography variant="h2" fontWeight={600}>
+                    Sign {isSignUp ? 'Up' : 'In'}
+                  </Typography>
+                  <Box sx={{ mt: isMd ? 1 : 2 }} />
                   {isSignUp ? (
                     <Typography variant="body2">
                       Already have an account? Sign in{' '}
@@ -298,6 +349,12 @@ const AuthPage = () => {
         <div className="visual">
           <Visual />
         </div>
+        {isMd && (
+          <div className="form__logo">
+            <Logo className="form__logo__scaled" />
+            <Typography textAlign={'center'}>Your Personal AI Workspace for Smarter Conversations</Typography>
+          </div>
+        )}
       </Container>
     </Main>
   );

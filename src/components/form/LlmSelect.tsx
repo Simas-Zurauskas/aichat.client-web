@@ -2,6 +2,7 @@ import { LLM, llmNaming } from '@/api/types';
 import styled from '@emotion/styled';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { Input } from './Input';
+import { useStateSelector } from '@/state';
 
 const Wrap = styled(FormControl)<{ variantColor: 'primary' | 'secondary' }>`
   .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
@@ -29,6 +30,11 @@ const Wrap = styled(FormControl)<{ variantColor: 'primary' | 'secondary' }>`
       color: ${({ theme }) => theme.colors.error} !important;
     }
   }
+
+  .MuiInputBase-root,
+  .MuiSvgIcon-root {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 interface LlmSelectProps {
@@ -50,6 +56,8 @@ export const LlmSelect: React.FC<LlmSelectProps> = ({
   onBlur,
   required,
 }) => {
+  const colors = useStateSelector(({ theme }) => theme.colors);
+
   return (
     <Wrap size="small" error={error} fullWidth required={required} variantColor={color}>
       <InputLabel>LLM</InputLabel>
@@ -60,6 +68,20 @@ export const LlmSelect: React.FC<LlmSelectProps> = ({
         color="secondary"
         disabled={disabled}
         onBlur={onBlur}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              backgroundColor: colors.appBgFront,
+              color: 'white',
+              '& .MuiMenuItem-root': {
+                '&.Mui-selected': {
+                  backgroundColor: colors.primary,
+                  color: 'white',
+                },
+              },
+            },
+          },
+        }}
       >
         <MenuItem value={LLM.GPT4O}>{llmNaming[LLM.GPT4O]}</MenuItem>
         <MenuItem value={LLM.GEMINI15PRO}>{llmNaming[LLM.GEMINI15PRO]}</MenuItem>

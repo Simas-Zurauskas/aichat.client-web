@@ -4,7 +4,9 @@ import styled from '@emotion/styled';
 
 const Wrap = styled(Container)`
   * {
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => {
+      return theme.colors.text;
+    }};
   }
   a {
     color: ${({ theme }) => theme.colors.blue};

@@ -10,7 +10,7 @@ import UploadFileIcon from '@mui/icons-material/UploadFile';
 const Div = styled.div`
   .dropzone {
     border: 1px dashed ${({ theme }) => theme.colors.primary};
-    background-color: #e5f1ff;
+    background: ${({ theme }) => theme.colors.shade};
     border-radius: 4px;
     padding: 24px 18px;
     display: flex;

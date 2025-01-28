@@ -22,7 +22,8 @@ export const Wrap = styled.div`
       padding: 0 38px;
       display: flex;
       align-items: center;
-      border-bottom: 1px solid #e0e0e0;
+      /* border-bottom: 1px solid #e0e0e0; */
+      border-bottom: 1px solid ${({ theme }) => theme.colors.border};
     }
     .content {
       padding: 24px 38px;

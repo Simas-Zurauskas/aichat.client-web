@@ -35,7 +35,7 @@ export const Welcome: React.FC<WelcomeProps> = () => {
         all responses are tailored to your uploaded content.
       </Typography>
       <Box mt={2} />
-      <Typography variant="body2" color="text.secondary" textAlign="center">
+      <Typography variant="body2" textAlign="center" style={{ opacity: 0.7 }}>
         <Box component="span" sx={{ fontStyle: 'italic' }}>
           Secure & Temporary:{' '}
         </Box>

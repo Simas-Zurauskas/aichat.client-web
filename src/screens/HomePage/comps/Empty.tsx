@@ -16,9 +16,9 @@ const Div = styled.div`
     height: 140px;
     font-size: 24px;
     font-weight: 400;
-    background-color: #e5f1ff;
+
     &:hover {
-      background-color: #d6e8ff;
+      background: ${({ theme }) => theme.colors.shade};
     }
   }
 

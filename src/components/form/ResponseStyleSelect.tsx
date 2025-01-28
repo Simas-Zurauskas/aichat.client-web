@@ -1,4 +1,5 @@
 import { ResponseStyle, responseStyleNaming } from '@/api/types';
+import { useStateSelector } from '@/state';
 import styled from '@emotion/styled';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
@@ -28,6 +29,11 @@ const Wrap = styled(FormControl)<{ variantColor: 'primary' | 'secondary' }>`
       color: ${({ theme }) => theme.colors.error} !important;
     }
   }
+
+  .MuiInputBase-root,
+  .MuiSvgIcon-root {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 interface ResponseStyleSelectProps {
@@ -49,6 +55,8 @@ export const ResponseStyleSelect: React.FC<ResponseStyleSelectProps> = ({
   onBlur,
   required,
 }) => {
+  const colors = useStateSelector(({ theme }) => theme.colors);
+
   return (
     <Wrap size="small" error={error} fullWidth required={required} variantColor={color}>
       <InputLabel>Response Style (temperature)</InputLabel>
@@ -59,6 +67,20 @@ export const ResponseStyleSelect: React.FC<ResponseStyleSelectProps> = ({
         color="secondary"
         disabled={disabled}
         onBlur={onBlur}
+        MenuProps={{
+          PaperProps: {
+            sx: {
+              backgroundColor: colors.appBgFront,
+              color: 'white',
+              '& .MuiMenuItem-root': {
+                '&.Mui-selected': {
+                  backgroundColor: colors.primary,
+                  color: 'white',
+                },
+              },
+            },
+          },
+        }}
       >
         <MenuItem value={ResponseStyle.SuperFocused}>{responseStyleNaming[ResponseStyle.SuperFocused]}</MenuItem>
         <MenuItem value={ResponseStyle.Precise}>{responseStyleNaming[ResponseStyle.Precise]}</MenuItem>

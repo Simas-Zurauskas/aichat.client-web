@@ -7,11 +7,25 @@ import { SupportedFileTypes } from '@/types';
 const StyledDialog = styled(Dialog)`
   .MuiPaper-root {
     min-width: 820px !important;
-    background-color: ${({ theme }) => theme.colors.background};
+    background-color: ${({ theme }) => theme.colors.appBgFront};
+    border-radius: 16px;
+
     .btns {
       display: flex;
       justify-content: flex-end;
       grid-gap: 8px;
+    }
+  }
+
+  ${({ theme }) => theme.breakpoints.down('md')} {
+    margin: 10px;
+    .MuiPaper-root {
+      min-width: 600px !important;
+    }
+  }
+  ${({ theme }) => theme.breakpoints.down('sm')} {
+    .MuiPaper-root {
+      min-width: 100% !important;
     }
   }
 `;

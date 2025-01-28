@@ -1,1 +1,1 @@
-export * from './FileItem';
+export * from './FileCard';
