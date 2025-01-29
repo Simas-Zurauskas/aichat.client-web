@@ -88,6 +88,11 @@ const Page = () => {
         </li>
         <li>We are not responsible for any damages, losses, or legal issues arising from your use of the App.</li>
         <li>You agree to indemnify and hold us harmless from any claims related to your use of the App.</li>
+        <li>
+          We reserve the right to shut down the App at any time, with or without prior notice. In the event of a
+          shutdown, all user data, including uploaded files, vector embeddings, and chat instances, will be permanently
+          deleted. We are not responsible for any data loss or consequences resulting from the shutdown of the App.
+        </li>
       </ul>
 
       <h2>6. Third-Party Services</h2>

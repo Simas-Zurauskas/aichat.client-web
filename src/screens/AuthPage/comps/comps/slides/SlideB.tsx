@@ -139,7 +139,8 @@ const GameOfLifeCanvas: React.FC = () => {
 
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      ctx.fillStyle = colors.card;
+      ctx.fillStyle = colors.appBgBack;
+
       for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
           if (grid[r][c] === 1) {

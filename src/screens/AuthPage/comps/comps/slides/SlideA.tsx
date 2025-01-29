@@ -98,7 +98,11 @@ export const SlideA: React.FC<SlideAProps> = ({ isActive }) => {
           },
         }}
       >
-        <Typography className="text-container__value" variant={isMd ? 'body2' : 'body1'} style={{ color: colors.text }}>
+        <Typography
+          className="text-container__value"
+          variant={isMd ? 'body2' : 'body1'}
+          style={{ color: colors.textWhite }}
+        >
           ProMax.AI gives you the power to harness the strengths of world-class AI models: GPT-4o, Gemini 1.5 Pro,
           DeepSeek V3, and DeepSeek R1. Tailor each instance to perfection with custom contexts, response styles, and
           settings—all displayed in an intuitive, user-friendly interface.

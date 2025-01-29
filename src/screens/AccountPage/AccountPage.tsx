@@ -1,5 +1,5 @@
 'use client';
-import { Alert, Box, Button, Chip, Typography } from '@mui/material';
+import { Alert, Box, Typography } from '@mui/material';
 import { PageContainer } from '@/components/layout';
 import { useStateSelector } from '@/state';
 import { makeLogout } from '@/api/utils';
@@ -11,12 +11,17 @@ import Link from 'next/link';
 import styled from '@emotion/styled';
 import Dialog from '@/components/Dialog';
 import { useState } from 'react';
+import { Button } from '@/components/form';
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  a {
+    color: ${({ theme }) => theme.colors.blue};
+  }
+`;
 
 const AccountPage = () => {
-  const { user, scheme } = useStateSelector(({ auth, theme }) => {
-    return { user: auth.user, scheme: theme.scheme };
+  const { user } = useStateSelector(({ auth }) => {
+    return { user: auth.user };
   });
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
@@ -45,31 +50,41 @@ const AccountPage = () => {
       />
       <PageContainer title="My Account">
         <Wrap>
+          <Typography variant="h6">User details</Typography>
+          <Box mb={0.5} />
           <Typography>{user?.email}</Typography>
-          <Box mb={2} />
-          <Typography fontWeight={500}>Usage:</Typography>
+          <Box mb={0.3} />
+          <Button variant="outlined" onClick={makeLogout}>
+            Log Out
+          </Button>
+          <Box mb={4} />
+          <Typography variant="h6">Usage</Typography>
+          <Box mb={0.5} />
           <Typography>
             Vector operations: {numeralFormat(user?.usage.vectorOps)} / {numeralFormat(user?.usage.vectorOpsLimit)}
           </Typography>
-          <Alert severity="info">
+          <Box mb={0.3} />
+          <Typography>
             Usage resets at: <span style={{ fontWeight: 500 }}>{formatDate(user?.usage.cycleReset)}</span>
-          </Alert>
+          </Typography>
+
           <Box mb={4} />
+          <Typography variant="h6">Terms and policy</Typography>
+          <Box mb={0.5} />
           <Link href="/terms-of-service" target="_blank">
             Terms of service
           </Link>
-          <div />
+          <Box mb={0.3} />
           <Link href="/privacy-policy" target="_blank">
             Privacy policy
           </Link>
 
           <Box mb={4} />
-          <Button variant="outlined" onClick={makeLogout}>
-            LOGOUT
-          </Button>
-          <Box mb={2} />
+
+          <Typography variant="h6">Danger zone</Typography>
+          <Box mb={0.5} />
           <Button variant="outlined" color="error" onClick={() => setIsDeleteOpen(true)} disabled={isPending}>
-            DELETE ACCOUNT
+            Delete Account
           </Button>
         </Wrap>
       </PageContainer>

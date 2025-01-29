@@ -58,7 +58,7 @@ export const Slider: React.FC<SliderProps> = () => {
           if (mouseOver) return;
           timeout = setTimeout(() => {
             slider.next();
-          }, 3000);
+          }, 6000);
         }
         slider.on('created', () => {
           slider.container.addEventListener('mouseover', () => {

@@ -110,6 +110,11 @@ const Page = () => {
         We reserve the right to suspend or terminate your access to the App at any time, with or without notice, for
         violations of these Terms or for any other reason.
       </p>
+      <p>
+        We reserve the right to discontinue or shut down the App at any time, with or without prior notice. Upon
+        shutdown, all user data, including uploaded files, vector embeddings, and chat instances, will be permanently
+        deleted. We assume no liability for any loss of data or disruption caused by the termination of the App.
+      </p>
 
       <h2>9. Changes to These Terms</h2>
       <p>
