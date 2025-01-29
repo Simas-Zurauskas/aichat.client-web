@@ -25,7 +25,7 @@ const SITE_URL = 'https://promaxai.simas.tech';
 
 export const metadata: Metadata = {
   title: 'ProMax.AI',
-  description: 'description',
+  description: 'Your Personal AI Workspace for Smarter Conversations',
   openGraph: {
     title: 'ProMax.AI',
     url: SITE_URL,
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: 'ProMax.AI',
     images: [
       {
-        url: `${SITE_URL}/ogimg.png`,
+        url: `${SITE_URL}/ogimage.png`,
       },
     ],
   },
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     description: 'Your Personal AI Workspace for Smarter Conversations',
     images: [
       {
-        url: `${SITE_URL}/ogimg.png`,
+        url: `${SITE_URL}/ogimage.png`,
       },
     ],
   },
