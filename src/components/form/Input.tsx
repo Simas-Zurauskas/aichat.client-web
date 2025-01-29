@@ -42,6 +42,6 @@ export const Input = styled(TextField)`
 
   input::placeholder,
   textarea::placeholder {
-    color: #76849a;
+    color: ${({ theme }) => (theme.scheme === 'light' ? '#76849a' : '#a4b9dc')};
   }
 `;

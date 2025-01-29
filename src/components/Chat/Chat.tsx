@@ -134,8 +134,8 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
     onSuccess: (data) => {
       queryClient.setQueryData<Message[]>([QKey.chat, id], (prev) => [...(prev || []), data]);
     },
-    onError: () => {
-      toast.error('Error sending message');
+    onError: (err) => {
+      toast.error(err.message || 'Something went wrong');
     },
   });
 

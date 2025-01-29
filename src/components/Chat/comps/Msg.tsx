@@ -8,7 +8,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { leaveFeedback } from '@/api/routes/instances';
 import { toast } from 'react-toastify';
 import { QKey } from '@/types';
-import RevealFx from '@/components/RevealFX';
 
 const Div = styled.div`
   display: flex;
@@ -28,6 +27,10 @@ const Div = styled.div`
       min-width: 70px !important;
       width: 70px !important;
     }
+  }
+
+  .MuiButton-outlined {
+    background-color: transparent;
   }
 `;
 
