@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { useKeenSlider } from 'keen-slider/react';
 import 'keen-slider/keen-slider.min.css';
-import { SlideA, SlideB } from './slides';
+import { SlideA, SlideB, SlideC } from './slides';
 import { Box } from '@mui/material';
 import { useState } from 'react';
 
@@ -78,28 +78,23 @@ export const Slider: React.FC<SliderProps> = () => {
     ],
   );
 
-  console.log('SLIDE', slide);
-
   return (
-    <>
-      <Div ref={sliderRef} className="keen-slider">
-        <div className="keen-slider__slide number-slide1">
-          <div className="content">
-            <SlideA isActive={slide === 0} />
-          </div>
+    <Div ref={sliderRef} className="keen-slider">
+      <div className="keen-slider__slide number-slide1">
+        <div className="content">
+          <SlideA isActive={slide === 0} />
         </div>
-        <div className="keen-slider__slide number-slide2">
-          <div className="content">
-            <SlideB isActive={slide === 1} />
-          </div>
+      </div>
+      <div className="keen-slider__slide number-slide2">
+        <div className="content">
+          <SlideB isActive={slide === 1} />
         </div>
-        <div className="keen-slider__slide number-slide3">
-          <div className="content">
-            <SlideB isActive={slide === 2} />
-          </div>
+      </div>
+      <div className="keen-slider__slide number-slide3">
+        <div className="content">
+          <SlideC isActive={slide === 2} />
         </div>
-      </Div>
-      {/* <Box mb={16} /> */}
-    </>
+      </div>
+    </Div>
   );
 };

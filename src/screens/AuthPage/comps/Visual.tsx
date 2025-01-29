@@ -21,7 +21,7 @@ export const Visual: React.FC<VisualProps> = () => {
       {!isMd && (
         <>
           <Typography variant="h2" style={{ color: colors.textWhite }}>
-            Unlock the Power of AI with ProMax.AI
+            Train AI on Your Files
           </Typography>
           <Box mb={isMd ? 4 : 8} />
         </>

@@ -103,7 +103,7 @@ const InstanceScreen = () => {
   return (
     <PageContainer title={data?.name || ''} contentStyle={{ padding: 0 }}>
       <Main>
-        <div className="chat">{data ? <>{data && <Chat id={id} />}</> : <Loading />}</div>
+        <div className="chat styled-scroll">{data ? <>{data && <Chat id={id} />}</> : <Loading />}</div>
         <motion.div
           className="toolbar"
           initial={false}

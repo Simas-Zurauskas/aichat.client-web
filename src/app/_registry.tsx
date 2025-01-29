@@ -69,12 +69,6 @@ const GlobalStyles = styled.div`
       background: ${({ theme }) => theme.colors.primary} !important;
       position: absolute;
     }
-    &--size-2 {
-      ::-webkit-scrollbar {
-        width: 2px;
-        height: 2px;
-      }
-    }
   }
 
   ${({ theme }) => theme.breakpoints.down('md')} {

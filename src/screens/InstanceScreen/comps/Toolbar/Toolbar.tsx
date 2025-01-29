@@ -208,22 +208,27 @@ export const Toolbar: React.FC<ToolbarProps> = ({ data }) => {
         <Button variant="outlined" color="secondary" onClick={() => setIsExtendOpen(true)}>
           Extend Access
         </Button>
-        <Box mb={2} />
-        <Button
-          color="error"
-          variant="outlined"
-          onClick={() => mutateDelChat(data.uxId)}
-          disabled={isPendingDelChat || !messages.length}
-          fullWidth
-        >
-          <DeleteOutlineSharp
-            sx={{
-              fontSize: 18,
-              marginRight: 0.5,
-            }}
-          />
-          Clear Chat
-        </Button>
+
+        {!(isPendingDelChat || !messages.length) && (
+          <>
+            <Box mb={2} />
+            <Button
+              color="error"
+              variant="outlined"
+              onClick={() => mutateDelChat(data.uxId)}
+              disabled={isPendingDelChat || !messages.length}
+              fullWidth
+            >
+              <DeleteOutlineSharp
+                sx={{
+                  fontSize: 18,
+                  marginRight: 0.5,
+                }}
+              />
+              Clear Chat
+            </Button>
+          </>
+        )}
       </Div>
     </>
   );

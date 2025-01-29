@@ -21,6 +21,7 @@ import { Logo } from '@/components/Logo';
 import { Button } from '@/components/form';
 import Link from 'next/link';
 import { Visual } from './comps';
+import { useStateSelector } from '@/state';
 
 const Main = styled.main`
   min-height: 100vh;
@@ -177,6 +178,7 @@ export function isInAppBrowser() {
 
 const AuthPage = () => {
   const params = useSearchParams();
+  const colors = useStateSelector(({ theme }) => theme.colors);
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [agreement, setAgreement] = useState({ tscs: false, privacy: false });
@@ -351,8 +353,10 @@ const AuthPage = () => {
         </div>
         {isMd && (
           <div className="form__logo">
-            <Logo className="form__logo__scaled" />
-            <Typography textAlign={'center'}>Your Personal AI Workspace for Smarter Conversations</Typography>
+            <Logo className="form__logo__scaled" colorOverride={colors.textWhite} />
+            <Typography textAlign={'center'} style={{ color: colors.textWhite }}>
+              Your Personal AI Workspace for Smarter Conversations
+            </Typography>
           </div>
         )}
       </Container>
