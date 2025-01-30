@@ -22,6 +22,8 @@ import { Button } from '@/components/form';
 import Link from 'next/link';
 import { Visual } from './comps';
 import { useStateSelector } from '@/state';
+import { SlideA } from './comps/comps/slides';
+import RevealFx from '@/components/RevealFX';
 
 const Main = styled.main`
   min-height: 100vh;
@@ -132,6 +134,10 @@ const Main = styled.main`
     flex-direction: column;
     flex: 1;
     overflow: hidden;
+    align-items: center;
+    justify-content: center;
+    padding: 0 50px 0 100px;
+    /* border: 1px solid red; */
   }
 
   .unsupported {
@@ -144,23 +150,18 @@ const Main = styled.main`
   ${({ theme }) => theme.breakpoints.down('md')} {
     .MuiContainer-root {
       display: flex;
-      flex-direction: column-reverse;
+      flex-direction: column;
       margin-top: 0px;
     }
     .form {
-      padding-top: 30px;
-      padding-bottom: 60px;
+      flex: 1;
+      top: 0;
+      border-radius: 0;
+
       &__logo {
         &__scaled {
           transform: scale(1.2);
         }
-      }
-    }
-  }
-  ${({ theme }) => theme.breakpoints.down('md')} {
-    .form {
-      &__logo {
-        margin-top: 40px;
       }
     }
   }
@@ -225,12 +226,11 @@ const AuthPage = () => {
         <div className="form">
           {!isLoading ? (
             <>
-              {!isMd && (
-                <div className="form__logo">
-                  <Logo className="form__logo__scaled" />
-                  <Typography textAlign={'center'}>Your Personal AI Workspace for Smarter Conversations</Typography>
-                </div>
-              )}
+              <div className="form__logo">
+                <Logo className="form__logo__scaled" />
+                <Typography textAlign={'center'}>Your Personal AI Workspace for Smarter Conversations</Typography>
+              </div>
+
               {!isInAppBrowser() ? (
                 <div className="form__content">
                   <Typography variant="h2" fontWeight={600}>
@@ -348,15 +348,13 @@ const AuthPage = () => {
           )}
         </div>
 
-        <div className="visual">
-          <Visual />
-        </div>
-        {isMd && (
-          <div className="form__logo">
-            <Logo className="form__logo__scaled" colorOverride={colors.textWhite} />
-            <Typography textAlign={'center'} style={{ color: colors.textWhite }}>
-              Your Personal AI Workspace for Smarter Conversations
+        {!isMd && (
+          <div className="visual">
+            <Typography variant="h2" style={{ color: colors.textWhite }} textAlign={'center'}>
+              Train AI on Your Files
             </Typography>
+            <Box mb={4} />
+            <SlideA isActive />
           </div>
         )}
       </Container>

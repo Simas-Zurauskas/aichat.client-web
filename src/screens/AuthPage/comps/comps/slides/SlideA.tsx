@@ -4,12 +4,11 @@ import { Typography, useMediaQuery } from '@mui/material';
 import { motion } from 'framer-motion';
 
 const Div = styled.div`
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  flex: 1;
+  max-width: 700px;
 
   .image-container {
     position: relative;
@@ -71,9 +70,9 @@ export const SlideA: React.FC<SlideAProps> = ({ isActive }) => {
       >
         <img className="image-container__main" src="/slide_a.png" alt="" />
         <motion.img
-          initial={{ x: 300 }}
+          initial={{ x: 0 }}
           animate={{
-            x: isActive ? 0 : 300,
+            // x: isActive ? 0 : 300,
             transition: {
               type: 'spring',
               damping: 11,
@@ -90,9 +89,9 @@ export const SlideA: React.FC<SlideAProps> = ({ isActive }) => {
 
       <motion.div
         className="text-container"
-        initial={{ x: 150 }}
+        initial={{ x: 0 }}
         animate={{
-          x: isActive ? 0 : 150,
+          // x: isActive ? 0 : 150,
           transition: {
             duration: 0.5,
           },
