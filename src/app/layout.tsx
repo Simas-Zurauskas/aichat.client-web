@@ -26,6 +26,11 @@ const SITE_URL = 'https://promaxai.simas.tech';
 export const metadata: Metadata = {
   title: 'ProMax.AI',
   description: 'Your Personal AI Workspace for Smarter Conversations',
+  authors: [
+    {
+      name: 'Simas Žurauskas',
+    },
+  ],
   openGraph: {
     title: 'ProMax.AI',
     url: SITE_URL,
